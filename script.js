@@ -165,28 +165,48 @@ document.getElementById('addItemForm').addEventListener('submit', async function
 });
 
 // UPDATING DATA: When someone clicks Claim
+// UPDATING DATA: When someone clicks Claim
 window.claimItem = async (docId) => {
+    let card = document.getElementById("card-" + docId);
     let btn = document.getElementById("btn-" + docId);
-    btn.innerHTML = "WAIT... ⏳"; // Flashes for a microsecond before disappearing
-    btn.disabled = true;
+    
+    // 1. INSTANTLY VANISH THE CARD FROM THE SCREEN 💨
+    // This bypasses the browser's alert pause and hides it immediately
+    if (card) {
+        card.style.opacity = "0";
+        card.style.transform = "scale(0.9) translateY(20px)";
+        
+        // Wait for the quick transition animation to finish, then completely remove it from the layout
+        setTimeout(() => {
+            card.style.display = "none";
+        }, 200);
+    }
 
     try {
-        // find the exact item in DB and change status to claimed
+        // 2. UPDATE FIREBASE IN THE BACKGROUND
         const itemRef = doc(db, "listedItems", docId);
         await updateDoc(itemRef, {
             status: "claimed"
         });
         
-        alert("♻️ Claimed! The item has been removed from the live board.");
+        console.log("Item " + docId + " successfully updated to claimed in the cloud.");
 
     } catch (err) {
         console.error("Bro, the claim failed. Error: ", err);
-        alert("Error! Did you update your Firebase Rules? Check the console log.");
-        btn.innerHTML = "CLAIM FOR FREE";
-        btn.disabled = false;
+        alert("Database error! Bringing the item back.");
+        
+        // If the database fails, bring the card back so the app doesn't glitch
+        if (card) {
+            card.style.display = "flex";
+            card.style.opacity = "1";
+            card.style.transform = "none";
+        }
+        if (btn) {
+            btn.innerHTML = "CLAIM FOR FREE";
+            btn.disabled = false;
+        }
     }
 };
-
 window.resetQuiz = () => {
     document.getElementById("footprintForm").reset();
     document.getElementById("scoreDisplay").innerHTML = "0";
