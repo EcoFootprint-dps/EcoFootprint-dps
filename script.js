@@ -1,13 +1,11 @@
 // ==========================================
 // SDG WEBATHON - JAVASCRIPT LOGIC
 // Real-time Firebase Sync setup 
-// Update: Claimed items now instantly VANISH from the board! 💨
 // ==========================================
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, updateDoc, doc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
-// our database config
 const firebaseConfig = {
     apiKey: "AIzaSyBNO8SiOBW49CqL7YgHd572pF9mikE7ABo",
     authDomain: "ecofootprint-9c4ed.firebaseapp.com",
@@ -18,7 +16,6 @@ const firebaseConfig = {
     measurementId: "G-NCNFZTHKS4"
 };
 
-// boot up firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
@@ -26,7 +23,7 @@ const db = getFirestore(app);
 // 1. POLICY SIMULATOR LOGIC
 // ==========================================
 document.getElementById('footprintForm').addEventListener('submit', async function(e) {
-    e.preventDefault(); // stops the annoying page reload
+    e.preventDefault(); 
 
     let ans1 = Number(document.getElementById("q1").value);
     let ans2 = Number(document.getElementById("q2").value);
@@ -36,7 +33,6 @@ document.getElementById('footprintForm').addEventListener('submit', async functi
     
     let finalPoints = ans1 + ans2 + ans3 + ans4 + ans5;
 
-    // SENDING DATA: Save the score to the cloud
     try {
         await addDoc(collection(db, "simulatorScores"), {
             score: finalPoints,
@@ -71,7 +67,6 @@ document.getElementById('footprintForm').addEventListener('submit', async functi
     document.getElementById('footprintForm').style.display = 'none';
     document.getElementById("resultBox").style.display = "block";
 
-    // cool counting animation
     let tally = 0;
     document.getElementById("scoreDisplay").innerHTML = "0"; 
     
@@ -98,25 +93,24 @@ document.getElementById('footprintForm').addEventListener('submit', async functi
 const boardDb = collection(db, "listedItems");
 const sortQuery = query(boardDb, orderBy("timestamp", "desc"));
 
-// GIVING DATA (REAL-TIME READ): This listens to Firestore 24/7.
+// GIVING DATA: This listens to Firestore 24/7.
 onSnapshot(sortQuery, (snapshot) => {
     let htmlContainer = document.getElementById('give-take-cards');
-    htmlContainer.innerHTML = ""; // clear old stuff
+    htmlContainer.innerHTML = ""; // Wipe it clean every time DB changes
     
-    let availableItemsCount = 0; // keep track to see if board is empty
+    let availableItemsCount = 0;
 
     snapshot.forEach((docSnap) => {
         let itemData = docSnap.data();
         let docId = docSnap.id; 
 
-        // 🔥 THE MAGIC FIX: If it is claimed, skip it completely!
+        // 🔥 THE MAGIC VANISH RULE: If it is claimed, completely skip drawing it!
         if (itemData.status === "claimed") {
             return; 
         }
 
-        availableItemsCount++; // We found an available item!
+        availableItemsCount++; 
 
-        // build the HTML card dynamically
         let makeCard = `
             <div class="item-card" id="card-${docId}">
                 <div class="card-icon">${itemData.icon}</div>
@@ -129,13 +123,12 @@ onSnapshot(sortQuery, (snapshot) => {
         htmlContainer.insertAdjacentHTML('beforeend', makeCard);
     });
     
-    // If every single item was claimed, show a cool empty state message
     if (availableItemsCount === 0) {
         htmlContainer.innerHTML = "<h3 style='width:100%; text-align:center; color:#555;'>No items available right now. Be the first to list something! ♻️</h3>";
     }
 });
 
-// SENDING DATA: When someone lists a new item
+// SENDING DATA: List a new item
 document.getElementById('addItemForm').addEventListener('submit', async function(e) {
     e.preventDefault(); 
 
@@ -143,7 +136,6 @@ document.getElementById('addItemForm').addEventListener('submit', async function
     formBtn.innerHTML = "LISTING... ⏳";
     
     try {
-        // pushing data to firestore
         await addDoc(collection(db, "listedItems"), {
             name: document.getElementById('newItemName').value,
             icon: document.getElementById('newItemIcon').value,
@@ -158,55 +150,39 @@ document.getElementById('addItemForm').addEventListener('submit', async function
 
     } catch (err) {
         console.error("DB Upload Failed: ", err);
-        alert("Network error.");
+        alert("🚨 ERROR: Firebase blocked the upload. Check your Firestore Rules.");
     } finally {
         formBtn.innerHTML = "LIST ITEM SECURELY 🔒";
     }
 });
 
-// UPDATING DATA: When someone clicks Claim
-// UPDATING DATA: When someone clicks Claim
+// UPDATING DATA: Claim an item
 window.claimItem = async (docId) => {
-    let card = document.getElementById("card-" + docId);
     let btn = document.getElementById("btn-" + docId);
-    
-    // 1. INSTANTLY VANISH THE CARD FROM THE SCREEN 💨
-    // This bypasses the browser's alert pause and hides it immediately
-    if (card) {
-        card.style.opacity = "0";
-        card.style.transform = "scale(0.9) translateY(20px)";
-        
-        // Wait for the quick transition animation to finish, then completely remove it from the layout
-        setTimeout(() => {
-            card.style.display = "none";
-        }, 200);
+    if(btn) {
+        btn.innerHTML = "WAIT... ⏳";
+        btn.disabled = true;
     }
 
     try {
-        // 2. UPDATE FIREBASE IN THE BACKGROUND
+        // Change the status to 'claimed' in the cloud. 
+        // As soon as this succeeds, onSnapshot fires and erases the card instantly.
         const itemRef = doc(db, "listedItems", docId);
         await updateDoc(itemRef, {
             status: "claimed"
         });
         
-        console.log("Item " + docId + " successfully updated to claimed in the cloud.");
-
     } catch (err) {
-        console.error("Bro, the claim failed. Error: ", err);
-        alert("Database error! Bringing the item back.");
-        
-        // If the database fails, bring the card back so the app doesn't glitch
-        if (card) {
-            card.style.display = "flex";
-            card.style.opacity = "1";
-            card.style.transform = "none";
-        }
-        if (btn) {
+        console.error("DB Error: ", err);
+        // BRO: IF YOU SEE THIS ALERT, YOUR FIREBASE RULES ARE WRONG!
+        alert("🚨 ERROR: Firebase blocked it! Go to Firebase > Firestore > Rules and set 'allow read, write: if true;'");
+        if(btn) {
             btn.innerHTML = "CLAIM FOR FREE";
             btn.disabled = false;
         }
     }
 };
+
 window.resetQuiz = () => {
     document.getElementById("footprintForm").reset();
     document.getElementById("scoreDisplay").innerHTML = "0";
