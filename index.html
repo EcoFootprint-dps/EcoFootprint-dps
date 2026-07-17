@@ -1,95 +1,92 @@
 <!DOCTYPE html>
-<HTML lang="en">
+<html lang="en">
 <head>
   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>EcoFootprint - Real Climate Solutions 🌍</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EcoFootprint - Real Climate Solutions 🌍</title>
   
- <!-- our css file -->
-  <link href='style.css' rel="stylesheet" >
+  <!-- CSS link -->
+  <link href="style.css" rel="stylesheet">
 </head>
-<body >
+<body>
 
-  <!-- nav bar -->
-  <DIV id="header" style="padding: 10px;">
-    <h2 class='logo' >🌿 EcoFootprint</h2>
-      <div class="nav-links">
-        <a href="#home">Overview</a>  | 
-         <a href="#sim">Policy Simulator</a> | 
-        <a href="#board">Give & Take</a> | 
-         <a href="#about">The Devs</a>
-      </div>
-  </DIV>
+  <!-- Header / Nav -->
+  <header id="header" style="padding: 10px;">
+    <h2 class="logo">🌿 EcoFootprint</h2>
+    <nav class="nav-links">
+      <a href="#home">Overview</a> | 
+      <a href="#sim">Policy Simulator</a> | 
+      <a href="#board">Give & Take</a> | 
+      <a href="#about">The Devs</a>
+    </nav>
+  </header>
 
-  <!-- main banner thing -->
-  <div id="home" class='hero-section' >
-    <CENTER>
-        <H1>SYSTEMIC CLIMATE ACTION 🌍⚡</H1>
-      <p style="font-size:18px;">Individual carbon footprints aren't enough. We need real, global policy changes and community action. Use our simulator to deploy proven solutions, or use the Give & Take Board to reduce waste today!</p>
-      <br/>
-      <br>
-        <a href="#sim"><button class="big-btn" style='cursor:pointer;'>START POLICY SIMULATOR 👇</button></a>
-    </CENTER>
-  </div>
+  <main>
+    <!-- Main Hero Section -->
+    <section id="home" class="hero-section" style="text-align: center;">
+      <h1>SYSTEMIC CLIMATE ACTION 🌍⚡</h1>
+      <p style="font-size: 18px;">Individual carbon footprints aren't enough. We need real, global policy changes and community action. Use our simulator to deploy proven solutions, or use the Give & Take Board to reduce waste today!</p>
+      <br><br>
+      <a href="#sim"><button class="big-btn" style="cursor: pointer;">START POLICY SIMULATOR 👇</button></a>
+    </section>
 
-<br><br>
+    <br><br>
 
- <!-- threats boxes -->
- <div class="threats-container">
-    <center>
-        <h2 style="color:#333;">The Real Threat Levels 🚨</h2>
-    </center>
-    
-    <div class="boxes" style="display:flex; justify-content: space-around; flex-wrap:wrap;">
-      <div class="box">
-        <H1>🏭</H1>
-        <h3 >Fossil Fuel Reliance</h3>
-        <p>Coal and gas still dominate the global grid. We must transition to renewable energy immediately.</p>
+    <!-- Threats Boxes -->
+    <section class="threats-container">
+      <div style="text-align: center;">
+        <h2 style="color: #333;">The Real Threat Levels 🚨</h2>
       </div>
       
-       <div class='box' >
-         <h1>🌲</h1>
-         <h3>Deforestation</h3>
-         <p>We are losing natural carbon sinks. Protecting forests and wetlands is essential for survival.</p>
-       </div>
-      
+      <div class="boxes" style="display: flex; justify-content: space-around; flex-wrap: wrap;">
         <div class="box">
-          <H1>🗑️</H1>
+          <h1>🏭</h1>
+          <h3>Fossil Fuel Reliance</h3>
+          <p>Coal and gas still dominate the global grid. We must transition to renewable energy immediately.</p>
+        </div>
+        
+        <div class="box">
+          <h1>🌲</h1>
+          <h3>Deforestation</h3>
+          <p>We are losing natural carbon sinks. Protecting forests and wetlands is essential for survival.</p>
+        </div>
+        
+        <div class="box">
+          <h1>🗑️</h1>
           <h3>Linear Economy</h3>
           <p>The "take-make-dispose" model is broken. We need a circular economy to eliminate waste entirely.</p>
         </div>
-    </div>
-  </div>
+      </div>
+    </section>
 
-  <br><br><HR><br>
+    <br><br><hr><br>
 
- <!-- the quiz / simulator -->
-  <div id='sim' class="simulator-wrapper">
-    <center><H2>⚡ Policy Deployment Simulator ⚡</H2></center>
-    
+    <!-- The Quiz / Simulator -->
+    <section id="sim" class="simulator-wrapper">
+      <h2 style="text-align: center;">⚡ Policy Deployment Simulator ⚡</h2>
+      
       <div class="quiz-box" style="margin-top: 20px;">
         <form id="footprintForm">
-        
-          <p><b >1. Global Energy Grid Strategy ⚡</b></p>
-          <select id="q1" required style="width:90%; padding:5px;">
+          <p><b>1. Global Energy Grid Strategy ⚡</b></p>
+          <select id="q1" required style="width: 90%; padding: 5px;">
             <option value="">-- Select Policy --</option>
-            <option value='20'>100% Transition to Solar, Wind & Geothermal</option>
+            <option value="20">100% Transition to Solar, Wind & Geothermal</option>
             <option value="10">Mixed Grid (Keep natural gas as backup)</option>
             <option value="0">Continue subsidizing coal and fossil fuels</option>
           </select>
           <br><br>
           
           <p style="font-weight: bold;">2. Natural Carbon Sinks & Land Use 🌲</p>
-          <select id='q2' required>
+          <select id="q2" required style="width: 90%; padding: 5px;">
             <option value="">-- Select Policy --</option>
             <option value="20">Strictly protect existing forests & oceans</option>
-            <option value='10'>Plant new trees (ignore current deforestation)</option>
+            <option value="10">Plant new trees (ignore current deforestation)</option>
             <option value="0">Expand agricultural land by cutting rainforests</option>
           </select>
           <br><br>
           
-          <p><B>3. Agricultural & Food System Shift 🍎</B></p>
-          <select id="q3" required>
+          <p><b>3. Agricultural & Food System Shift 🍎</b></p>
+          <select id="q3" required style="width: 90%; padding: 5px;">
             <option value="">-- Select Policy --</option>
             <option value="20">Shift globally to plant-rich diets & halve food waste</option>
             <option value="10">Promote organic farming but keep high meat production</option>
@@ -97,19 +94,19 @@
           </select>
           <br><br>
           
-           <div>
-              <b>4. Urban Transport Infrastructure 🚄</b><br>
-              <select id="q4" required style='margin-top:8px;'>
-                <option value="">-- Select Policy --</option>
-                <option value="20">Invest heavily in High-Speed Rail & Walkable Cities</option>
-                <option value="10">Subsidize EVs but keep car-centric cities</option>
-                <option value="0">Expand highways and keep gas-powered cars</option>
-              </select>
-           </div>
+          <div>
+            <b>4. Urban Transport Infrastructure 🚄</b><br>
+            <select id="q4" required style="margin-top: 8px; width: 90%; padding: 5px;">
+              <option value="">-- Select Policy --</option>
+              <option value="20">Invest heavily in High-Speed Rail & Walkable Cities</option>
+              <option value="10">Subsidize EVs but keep car-centric cities</option>
+              <option value="0">Expand highways and keep gas-powered cars</option>
+            </select>
+          </div>
           <br><br>
           
           <p><b>5. Industry & Manufacturing 🏗️</b></p>
-          <select id="q5" required>
+          <select id="q5" required style="width: 90%; padding: 5px;">
             <option value="">-- Select Policy --</option>
             <option value="20">Enforce a Circular Economy (Zero Waste, Right-to-Repair)</option>
             <option value="10">Improve recycling programs but allow single-use plastics</option>
@@ -117,82 +114,81 @@
           </select>
           <br><br>
           
-          <center>
-              <button type="submit" class="submit-btn" style="background:green;color:white;padding:10px;">ENACT GLOBAL POLICIES 📈</button>
-          </center>
+          <div style="text-align: center;">
+            <button type="submit" class="submit-btn" style="background: green; color: white; padding: 10px; border: none; cursor: pointer;">ENACT GLOBAL POLICIES 📈</button>
+          </div>
         </form>
 
-        <!-- hidden result screen that shows up in js -->
-        <div id='resultBox' style="display: none; text-align: center; border: 2px solid #ccc; padding:15px; margin-top:20px;">
-          <h1 id="resultEmoji" >🌍</h1>
+        <!-- Hidden result screen that shows up in JS -->
+        <div id="resultBox" style="display: none; text-align: center; border: 2px solid #ccc; padding: 15px; margin-top: 20px;">
+          <h1 id="resultEmoji">🌍</h1>
           <h3 style="font-family: Arial;">Sustainability Score: <span id="scoreText">0</span> / 100!</h3>
           
-          <div id="barBacking" style="width: 100%; background-color: #eee; height: 25px; border-radius:5px;">
-            <div id="barFill" style="width: 0%; background: green; height: 100%; border-radius:5px;"></div>
+          <div id="barBacking" style="width: 100%; background-color: #eee; height: 25px; border-radius: 5px;">
+            <div id="barFill" style="width: 0%; background: green; height: 100%; border-radius: 5px; transition: width 0.5s;"></div>
           </div>
           <br>
-          <p id="feedbackText" style="font-weight:bold;"></p>
+          <p id="feedbackText" style="font-weight: bold;"></p>
           <br>
-          <button type="button" onclick='resetQuiz()' style="cursor: pointer;">Adjust Policies 🔄</button>
+          <button type="button" onclick="resetQuiz()" style="cursor: pointer; padding: 8px 15px;">Adjust Policies 🔄</button>
         </div>
       </div>
-  </div>
+    </section>
 
-  <br><br><hr style="border: 1px solid black;"><br>
+    <br><br><hr style="border: 1px solid black;"><br>
 
-  <!-- give and take board section -->
-  <div id="board" style='padding: 20px; background: #f9f9f9;'>
-    <H2>♻️ The Give & Take Board ♻️</H2>
-    <p><i>Circular economy in action! List items you don't need, or claim stuff for free. Syncs live globally.</i></p>
-    
-    <br>
-    <div class="add-post" style="border: 1px dashed gray; padding: 10px;">
-      <h3 style="margin-top:0;">List a New Item 📦</h3>
-      <form id="addItemForm">
-        <input type='text' id="newItemName" placeholder="What are you giving away?" required style="width:80%;">
-        
-        <select id="newItemIcon" required style="margin-left: 10px;">
-          <option value="">Select Icon</option>
-          <option value="📚">📚 Books/Notes</option>
-          <option value="👕">👕 Uniforms/Clothes</option>
-          <option value="🎨">🎨 Art/Supplies</option>
-          <option value="⚽">⚽ Sports Gear</option>
-          <option value="💻">💻 Tech/Cables</option>
-        </select>
-        <br><br>
-        
-        <input type="text" id='newListerName' placeholder="Your Name & Class (e.g. Rahul, 9B)" required style="width:50%;">
-        <br><br>
-        
-        <textarea id="newItemDesc" rows="3" style="width: 90%; resize:vertical;" placeholder="Describe the condition..." required></textarea>
-        <br><br>
-        
-        <button type="submit" style="padding: 8px 15px;">LIST ITEM SECURELY 🔒</button>
-      </form>
-    </div>
+    <!-- Give and Take Board Section -->
+    <section id="board" style="padding: 20px; background: #f9f9f9;">
+      <h2>♻️ The Give & Take Board ♻️</h2>
+      <p><i>Circular economy in action! List items you don't need, or claim stuff for free. Syncs live globally.</i></p>
+      
+      <br>
+      <div class="add-post" style="border: 1px dashed gray; padding: 10px;">
+        <h3 style="margin-top: 0;">List a New Item 📦</h3>
+        <form id="addItemForm">
+          <input type="text" id="newItemName" placeholder="What are you giving away?" required style="width: 80%; padding: 5px;">
+          
+          <select id="newItemIcon" required style="margin-left: 10px; padding: 5px;">
+            <option value="">Select Icon</option>
+            <option value="📚">📚 Books/Notes</option>
+            <option value="👕">👕 Uniforms/Clothes</option>
+            <option value="🎨">🎨 Art/Supplies</option>
+            <option value="⚽">⚽ Sports Gear</option>
+            <option value="💻">💻 Tech/Cables</option>
+          </select>
+          <br><br>
+          
+          <input type="text" id="newListerName" placeholder="Your Name & Class (e.g. Rahul, 9B)" required style="width: 50%; padding: 5px;">
+          <br><br>
+          
+          <textarea id="newItemDesc" rows="3" style="width: 90%; resize: vertical; padding: 5px;" placeholder="Describe the condition..." required></textarea>
+          <br><br>
+          
+          <button type="submit" style="padding: 8px 15px; cursor: pointer;">LIST ITEM SECURELY 🔒</button>
+        </form>
+      </div>
+
+      <br><br>
+      
+      <!-- Firebase posts load here -->
+      <div id="live-board">
+        <p style="color: gray; font-style: italic; text-align: center;">📡 Syncing live items from the cloud...</p>
+      </div>
+    </section>
 
     <br><br>
-    
-    <!-- this is where firebase posts load -->
-    <div id="live-board">
-      <center><p style="color: gray; font-style: italic;">📡 Syncing live items from the cloud...</p></center>
-    </div>
-  </div>
+  </main>
 
-  <br><br>
-
-  <!-- footer / about section -->
-  <div id='about' style="background: #222; color: #fff; padding: 30px 20px;">
-    <H2 style="color:white;">Who Made This 🤜🤛</H2>
+  <!-- Footer / About Section -->
+  <footer id="about" style="background: #222; color: #fff; padding: 30px 20px;">
+    <h2 style="color: white;">Who Made This 🤜🤛</h2>
     <p style="font-size: 14px;">Built for the 2026 webathon by two 9th graders promoting real climate action.</p>
     <br>
-    <center>
-        <p style="margin-bottom:0;">© 2026 Team CodeGreens. Action today for a sustainable tomorrow. 🌍</p>
-    </center>
-  </div>
+    <p style="margin-bottom: 0; text-align: center;">© 2026 Team CodeGreens. Action today for a sustainable tomorrow. 🌍</p>
+  </footer>
 
-  <!-- javascript file here -->
+  <!-- JavaScript file -->
   <script type="module" src="script.js"></script>
 
 </body>
-</HTML>
+</html>
