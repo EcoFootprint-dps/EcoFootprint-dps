@@ -1,8 +1,8 @@
 /* 
    bro this new hard-shadow aesthetic is literally so good. 
-   it looks like an actual app now. 
    Update: added custom scrollbars and a dot grid background. We are winning this.
    Update 2: Added the Give & Take board styles with sick yellow shadows!
+   Update 3: Added styles for the "List Your Own Item" form.
 */
 * { margin: 0; padding: 0; box-sizing: border-box; transition: all 0.2s ease; }
 
@@ -68,12 +68,20 @@ body {
 
 /* =========================================
    GIVE & TAKE BOARD STYLES 
-   bro I made the shadow yellow to stand out
    ========================================= */
 .give-take-section { padding: 80px 20px; background-color: transparent; }
 .board-subtitle { text-align: center; max-width: 600px; margin: -30px auto 40px auto; font-size: 1.1rem; font-weight: 600; text-shadow: 1px 1px 0px #fff; }
 
-.item-card { background-color: #ffffff; border: 4px solid #000000; padding: 30px; width: 320px; box-shadow: 8px 8px 0px #ffeb3b; display: flex; flex-direction: column; }
+/* ADD ITEM FORM STYLES */
+.add-item-box { max-width: 600px; margin: 0 auto 50px auto; background-color: #fff9c4; border: 4px dashed #ff9800; padding: 30px; border-radius: 10px; box-shadow: 8px 8px 0px #ff9800; }
+.add-item-box h3 { margin-bottom: 15px; color: #d35400; font-size: 1.5rem; text-align: center; font-weight: 800; text-transform: uppercase; }
+.input-row { display: flex; gap: 15px; margin-bottom: 15px; }
+.add-item-box input, .add-item-box select, .add-item-box textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 3px solid #000; font-size: 1rem; font-weight: 600; font-family: 'Segoe UI', sans-serif; outline: none; }
+.add-item-box input:focus, .add-item-box textarea:focus, .add-item-box select:focus { border-color: #ff9800; background-color: #fff3e0; transform: translateX(5px); }
+.add-btn { width: 100%; background-color: #ff9800; color: #fff; font-size: 1.2rem; font-weight: 800; padding: 15px; border: 4px solid #000; box-shadow: 6px 6px 0px #000; cursor: pointer; text-transform: uppercase; }
+.add-btn:hover { background-color: #000; color: #ff9800; transform: translate(-2px, -2px); box-shadow: 10px 10px 0px #ff9800; }
+
+.item-card { background-color: #ffffff; border: 4px solid #000000; padding: 30px; width: 320px; box-shadow: 8px 8px 0px #ffeb3b; display: flex; flex-direction: column; animation: fadeInUp 0.5s ease-out; }
 .item-card:hover { transform: translateY(-5px); box-shadow: 12px 12px 0px #ffeb3b; }
 .item-card h3 { margin-bottom: 5px; color: #000; font-size: 1.4rem; font-weight: 800; }
 .item-lister { font-weight: bold; color: #ff9800; margin-bottom: 10px; font-size: 0.9rem; }
@@ -81,8 +89,6 @@ body {
 
 .claim-btn { background-color: #ffeb3b; color: #000; font-weight: 800; border: 3px solid #000; padding: 10px; font-size: 1rem; cursor: pointer; box-shadow: 4px 4px 0px #000; margin-top: 20px; text-transform: uppercase; }
 .claim-btn:hover:not(:disabled) { background-color: #000; color: #ffeb3b; transform: translate(-2px, -2px); box-shadow: 6px 6px 0px #ffeb3b; }
-
-/* when a kid clicks claim, we make the button look locked! */
 .claim-btn:disabled { background-color: #e0e0e0; color: #9e9e9e; box-shadow: none; border-color: #9e9e9e; transform: none; cursor: not-allowed; }
 
 /* ABOUT SECTION */
@@ -99,5 +105,6 @@ footer { background-color: #000000; color: #ffffff; text-align: center; padding:
     .navbar nav a { margin: 0 10px; }
     .hero-section h1 { font-size: 2.2rem; }
     .fact-card, .item-card { width: 100%; }
-    .quiz-container { padding: 20px; }
+    .quiz-container, .add-item-box { padding: 20px; }
+    .input-row { flex-direction: column; gap: 0; }
 }
