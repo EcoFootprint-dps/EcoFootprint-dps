@@ -1,11 +1,12 @@
 // ==========================================
 // SDG WEBATHON - FULL STACK JAVASCRIPT LOGIC
-// Update: Added ability to list YOUR OWN items dynamically to the DOM and DB!
+// Update: LIVE REAL-TIME SYNC ACTIVATED 📡☁️
 // ==========================================
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-analytics.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+// Added onSnapshot, updateDoc, and doc for real-time magic!
+import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, updateDoc, doc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBNO8SiOBW49CqL7YgHd572pF9mikE7ABo",
@@ -95,26 +96,56 @@ document.getElementById('footprintForm').addEventListener('submit', async functi
 });
 
 // ==========================================
-// 2. THE GIVE & TAKE BOARD LOGIC
+// 2. THE GIVE & TAKE BOARD (LIVE SYNC)
 // ==========================================
+
+const itemsCollection = collection(db, "listedItems");
+// Query to sort newest items first!
+const q = query(itemsCollection, orderBy("timestamp", "desc"));
+
+// 🔥 THIS IS THE REAL-TIME MAGIC LISTENER 🔥
+// Every time the DB changes, this instantly redraws the board for everyone on the site!
+onSnapshot(q, (snapshot) => {
+    let container = document.getElementById('give-take-cards');
+    container.innerHTML = ""; // Clear the loading text/old cards
+
+    snapshot.forEach((docSnap) => {
+        let item = docSnap.data();
+        let dbId = docSnap.id; // This is the actual Firebase Document ID
+
+        let isClaimed = item.status === "claimed";
+        let btnText = isClaimed ? "CLAIMED ❌" : "CLAIM FOR FREE";
+        let btnDisabled = isClaimed ? "disabled" : "";
+        let cardStyle = isClaimed ? 'style="border-color: #9e9e9e; box-shadow: none;"' : '';
+
+        let cardHTML = `
+            <div class="item-card" id="card-${dbId}" ${cardStyle}>
+                <div class="card-icon">${item.icon}</div>
+                <h3>${item.name}</h3>
+                <p class="item-lister">Listed by: ${item.lister}</p>
+                <p>${item.description}</p>
+                <button class="claim-btn" id="btn-${dbId}" onclick="claimItem('${dbId}')" ${btnDisabled}>${btnText}</button>
+            </div>
+        `;
+        container.insertAdjacentHTML('beforeend', cardHTML);
+    });
+});
 
 // A. LIST A NEW ITEM
 document.getElementById('addItemForm').addEventListener('submit', async function(event) {
-    event.preventDefault(); // Stop page reload
+    event.preventDefault(); 
 
-    // Grab values from the new form
     let itemName = document.getElementById('newItemName').value;
     let itemIcon = document.getElementById('newItemIcon').value;
     let listerName = document.getElementById('newListerName').value;
     let itemDesc = document.getElementById('newItemDesc').value;
-    
-    // Generate a unique ID using the current time
-    let uniqueId = "item-" + Date.now();
 
+    let submitBtn = document.querySelector(".add-btn");
+    submitBtn.innerHTML = "LISTING... ⏳";
+    
     try {
         // Push the new item to Firebase
         await addDoc(collection(db, "listedItems"), {
-            id: uniqueId,
             name: itemName,
             icon: itemIcon,
             lister: listerName,
@@ -124,49 +155,32 @@ document.getElementById('addItemForm').addEventListener('submit', async function
         });
 
         alert("📦 Item listed successfully in the cloud! Thanks for reducing waste.");
-
-        // Bro, this is dynamic DOM manipulation. We build the HTML card from JS!
-        let newCardHTML = `
-            <div class="item-card" id="card-${uniqueId}">
-                <div class="card-icon">${itemIcon}</div>
-                <h3>${itemName}</h3>
-                <p class="item-lister">Listed by: ${listerName}</p>
-                <p>${itemDesc}</p>
-                <button class="claim-btn" id="btn-${uniqueId}" onclick="claimItem('${uniqueId}')">CLAIM FOR FREE</button>
-            </div>
-        `;
-
-        // Inject the new card at the very beginning of our container
-        document.getElementById('give-take-cards').insertAdjacentHTML('afterbegin', newCardHTML);
-
-        // Clear the form for the next item
         document.getElementById('addItemForm').reset();
 
     } catch (e) {
         console.error("Failed to list item: ", e);
         alert("Error connecting to database. Please try again.");
+    } finally {
+        submitBtn.innerHTML = "LIST ITEM SECURELY 🔒";
     }
+    // We don't need to manually update HTML here because onSnapshot handles it automatically!
 });
 
-// B. CLAIM AN ITEM
-async function claimItem(itemId) {
-    let btn = document.getElementById("btn-" + itemId);
-    
+// B. CLAIM AN ITEM (Live Sync Update)
+async function claimItem(docId) {
+    let btn = document.getElementById("btn-" + docId);
     btn.innerHTML = "CLAIMING... ⏳";
     btn.disabled = true;
 
     try {
-        await addDoc(collection(db, "claimedItems"), {
-            itemClaimed: itemId,
-            status: "claimed",
-            timestamp: new Date().toISOString()
+        // Find the specific item document and update its status to claimed
+        const itemRef = doc(db, "listedItems", docId);
+        await updateDoc(itemRef, {
+            status: "claimed"
         });
 
-        alert("♻️ Circular Economy WIN! Claim recorded. Go meet them to pick it up!");
-
-        btn.innerHTML = "CLAIMED ❌";
-        document.getElementById("card-" + itemId).style.borderColor = "#9e9e9e";
-        document.getElementById("card-" + itemId).style.boxShadow = "none";
+        alert("♻️ Circular Economy WIN! Claim recorded globally.");
+        // We don't need to manually update HTML here because onSnapshot handles it automatically!
 
     } catch (e) {
         console.error("Failed to claim item:", e);
@@ -185,6 +199,6 @@ function resetQuiz() {
     document.getElementById('quiz').scrollIntoView({ behavior: 'smooth' });
 }
 
-// ⚠️ We still need to attach these to window so HTML onClick works!
+// Attach to window so HTML onClick works
 window.claimItem = claimItem;
 window.resetQuiz = resetQuiz;
