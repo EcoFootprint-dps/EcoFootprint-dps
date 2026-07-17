@@ -1,145 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoFootprint - Save The Planet Now!!!</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+function calculateScore() {
+    // Get all the inputs
+    const q1 = document.getElementById('q1').value;
+    const q2 = document.getElementById('q2').value;
+    const q3 = document.getElementById('q3').value;
+    const q4 = document.getElementById('q4').value;
+    const q5 = document.getElementById('q5').value;
 
-    <!-- NAVBAR START - DO NOT TOUCH CODE BELOW THIS OR LUNCH BREAKS -->
-    <header class="navbar">
-        <div class="logo">🌿 EcoFootprint</div>
-        <nav>
-            <a href="#hero">Home</a>
-            <a href="#facts">Why It Matters</a>
-            <a href="#quiz">The Quiz</a>
-            <a href="#about">Team CodeGreens</a>
-        </nav>
-    </header>
-    <!-- NAVBAR END -->
+    // Check if everything is answered
+    if (!q1 || !q2 || !q3 || !q4 || !q5) {
+        alert("Hey! Answer all the questions first, please! 🌍");
+        return;
+    }
 
-    <!-- HERO SECTION - WE SPENT 2 HOURS ON THIS ACCORDING TO PLAN -->
-    <section id="hero" class="hero-section">
-        <h1>THE PLANET IS HEATING UP!!! 🚨🌊</h1>
-        <p>UN Sustainable Development Goal 13 is all about Climate Action. We can't just sit here playing video games while the ice caps completely melt away! Calculate your carbon footprint right now and change your habits before it is too late!</p>
-        <a href="#quiz" class="cta-btn">TAKE THE QUIZ NOW! 👇</a>
-    </section>
+    // Math!
+    const totalScore = parseInt(q1) + parseInt(q2) + parseInt(q3) + parseInt(q4) + parseInt(q5);
+    
+    // Show results
+    document.getElementById('scoreDisplay').innerText = totalScore;
+    const feedback = document.getElementById('feedbackText');
+    
+    if (totalScore <= 15) {
+        feedback.innerText = "Wow! You are an absolute Planet Hero! 🌿 Keep living that green lifestyle!";
+    } else if (totalScore <= 35) {
+        feedback.innerText = "You're doing okay, but you could definitely be greener. Small changes make a big difference!";
+    } else {
+        feedback.innerText = "Oh no! Your footprint is pretty heavy. Check out the facts above and start making changes today! 🚨";
+    }
 
-    <!-- CARDS SECTION FOR SDG 13 FACTS -->
-    <section id="facts" class="facts-section">
-        <h2 class="section-title">Why SDG 13 Matters So Much! 📉</h2>
-        <div class="cards-container">
-            
-            <div class="fact-card">
-                <h3>Extreme Weather 🌪️</h3>
-                <p>Floods, massive wildfires, and crazy storms are happening way more often now. It's not just "bad weather"—it's a literal climate emergency!</p>
-            </div>
+    // Hide form, show result
+    document.getElementById('footprintForm').style.display = 'none';
+    document.getElementById('resultBox').style.display = 'block';
+}
 
-            <div class="fact-card">
-                <h3>Melting Ice & Sea Levels 🏔️</h3>
-                <p>Glaciers are disappearing super fast. If they all melt, entire coastal cities will literally be underwater. Goodbye beach vacations!</p>
-            </div>
-
-            <div class="fact-card">
-                <h3>Carbon Overload ⚡</h3>
-                <p>Humans are pumping billions of tons of CO2 into the atmosphere from cars and factories. We need to stop wasting energy right now!</p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- THE CARBON FOOTPRINT QUIZ (OUR WORKING MODEL BONUS POINTS!!!) -->
-    <section id="quiz" class="quiz-section">
-        <h2 class="section-title">⚡ The Carbon Footprint Quiz ⚡</h2>
-        <p class="quiz-subtitle">Answer these 5 questions honestly to see how much you are destroying the Earth (or saving it)!</p>
-        
-        <div class="quiz-container">
-            <form id="footprintForm">
-                
-                <div class="question-group">
-                    <label>1. How do you usually get to school every day? 🚌</label>
-                    <select id="q1">
-                        <option value="">-- Choose one --</option>
-                        <option value="10">I get driven alone in a big car/SUV</option>
-                        <option value="5">Car pool or public school bus</option>
-                        <option value="2">I walk or ride my bicycle (Eco-Hero!)</option>
-                    </select>
-                </div>
-
-                <div class="question-group">
-                    <label>2. How often do you eat meat or dairy products? 🍔</label>
-                    <select id="q2">
-                        <option value="">-- Choose one --</option>
-                        <option value="10">Every single meal (Meat lover!)</option>
-                        <option value="6">A few times a week</option>
-                        <option value="2">Rarely or never (Vegan/Vegetarian power!)</option>
-                    </select>
-                </div>
-
-                <div class="question-group">
-                    <label>3. Do you remember to turn off lights/fans when leaving a room? 💡</label>
-                    <select id="q3">
-                        <option value="">-- Choose one --</option>
-                        <option value="10">Never, my parents always yell at me for it</option>
-                        <option value="5">Sometimes I forget if I am in a rush</option>
-                        <option value="1">Always! I hate wasting electricity!</option>
-                    </select>
-                </div>
-
-                <div class="question-group">
-                    <label>4. How long are your daily showers? 🚿</label>
-                    <select id="q4">
-                        <option value="">-- Choose one --</option>
-                        <option value="10">More than 15 minutes (I sing a whole album)</option>
-                        <option value="5">Around 5 to 10 minutes</option>
-                        <option value="2">Super fast under 5 minutes!</option>
-                    </select>
-                </div>
-
-                <div class="question-group">
-                    <label>5. How much stuff does your house actually recycle? ♻️</label>
-                    <select id="q5">
-                        <option value="">-- Choose one --</option>
-                        <option value="10">Nothing, everything goes in the main trash bin</option>
-                        <option value="5">We recycle plastic bottles sometimes</option>
-                        <option value="1">We sort everything strictly (paper, plastic, glass!)</option>
-                    </select>
-                </div>
-
-                <!-- Fix button type so it doesn't reload the entire page randomly -->
-                <button type="button" class="submit-btn" onclick="calculateScore()">Calculate My Footprint Score!!!</button>
-            </form>
-
-            <!-- THIS DIV STAYS HIDDEN UNTIL JAVASCRIPT MAKES IT APPEAR -->
-            <div id="resultBox" class="result-box" style="display: none;">
-                <h3>Your Total Score: <span id="scoreDisplay">0</span> Points!</h3>
-                <p id="feedbackText"></p>
-                <button type="button" class="reset-btn" onclick="resetQuiz()">Try Again 🔄</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- ABOUT THE CREATORS SECTION -->
-    <section id="about" class="about-section">
-        <h2>About Team CodeGreens 🤜🤛</h2>
-        <p>We are two best friends from Class 9 who care a lot about the environment! We built this entire website ourselves using standard HTML, CSS, and JS over the weekend. No AI cheats, just pure brainpower and google searches!</p>
-        <div class="team-members">
-            <div class="member">
-                <h4>Rahul S.</h4>
-                <p>HTML Structure & Fact Finding Specialist. (Master of the anchor tags)</p>
-            </div>
-            <div class="member">
-                <h4>Aman V.</h4>
-                <p>CSS Design & JS Logic Wizard. (Fixed the broken quiz loops at midnight)</p>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p>© 2026 Team CodeGreens. Built for the SDG Webathon competition. Save the trees! 🌲</p>
-    </footer>
-
-</body>
-</html>
+function resetQuiz() {
+    document.getElementById('footprintForm').reset();
+    document.getElementById('footprintForm').style.display = 'block';
+    document.getElementById('resultBox').style.display = 'none';
+}
