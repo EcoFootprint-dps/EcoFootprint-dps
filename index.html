@@ -24,12 +24,53 @@
         <!-- hide screen(i copyd this hack from stackoverflow cuz im lazy lol) --> <div id="resultBox" class="end-screen" style="display: none;"> <h1 id="resultEmoji" class="big-emoji">🌍</h1> <h3>Sustainability Score: <span id="scoreText">0</span> / 100</h3> <div id="barBacking" class="bar-background"> <div id="barFill" class="bar-color"></div> </div> <p id="feedbackText"></p> <button type="button" class="btn-retry" onclick="resetQuiz()">Retry Policies</button> </div>
     </div> </div>
 
-    <!-- firestore is a weird hacker cloud place but it works --> <div id="board" class="board-area"> <h2 class="main-heading">♻️ The Give & Take Board ♻️</h2> <p class="sub-text">List your unused items or find something you need. Reusing items helps reduce overall waste in our community.</p>
-        <!-- Easter Egg #2: We almost named this 'Craigslist for broke teens' --> <div class="new-post-box"> <h3>List a New Item</h3> <form id="addItemForm"> <div class="flex-inputs"> <input type="text" id="newItemName" placeholder="e.g. Geometry Textbook" required> <select id="newItemIcon" required> <option value="">Pick an Icon</option> <!-- categories adding is here --> <option value="📚">📚 Books/Notes</option> <option value="👕">👕 Uniforms/Clothes</option> <option value="🎨">🎨 Art/Supplies</option> <option value="⚽">⚽ Sports Gear</option> <option value="💻">💻 Tech/Cables</option> </select> </div> <input type="text" id="newListerName" placeholder="Your Name & Class" required> <textarea id="newItemDesc" rows="3" placeholder="Condition? Where to meet?" required></textarea> <button type="submit" class="post-btn" oncontextmenu="alert('Stop right clicking weirdo!'); return false;">LIST ITEM</button> </form> </div>
+    <!-- firestore is a weird hacker cloud place but it works -->
+    <div id="board" class="board-area">
+        <h2 class="main-heading">♻️ The Give & Take Board ♻️</h2>
+        
+        <!-- Stats Counter added here! -->
+        <div class="stats-banner">
+            <h3>Items Diverted from Landfill: <span id="landfillCounter">0</span></h3>
+        </div>
 
-        <!-- board is done --> <div id="live-board" class="flex-boxes"> <h3 style="width:100%; text-align:center; color:gray;">Loading items from firestore...</h3> </div>
+        <p class="sub-text">List your unused items or find something you need. Reusing items helps reduce overall waste in our community.</p>
 
-        <!-- this details tag is big brain mode --> <div class="claimed-box"> <details> <summary>Claimed History</summary> <p>Check here to see which items have already been swapped.</p> <ul id="claimed-list"> <!-- data is pushed here --> <li>No items claimed yet. (be the first!)</li> </ul> </details> </div>
+        <!-- Easter Egg #2: We almost named this 'Craigslist for broke teens' -->
+        <div class="new-post-box">
+            <h3>List a New Item</h3>
+            <form id="addItemForm">
+                <div class="flex-inputs">
+                    <input type="text" id="newItemName" placeholder="e.g. Geometry Textbook" required>
+                    <select id="newItemIcon" required>
+                        <option value="">Pick an Icon</option>
+                        <option value="📚">📚 Books/Notes</option>
+                        <option value="👕">👕 Uniforms/Clothes</option>
+                        <option value="🎨">🎨 Art/Supplies</option>
+                        <option value="⚽">⚽ Sports Gear</option>
+                        <option value="💻">💻 Tech/Cables</option>
+                    </select>
+                </div>
+                <input type="text" id="newListerName" placeholder="Your Name & Class" required>
+                <textarea id="newItemDesc" rows="3" placeholder="Condition? Where to meet?" required></textarea>
+                <button type="submit" class="post-btn" oncontextmenu="alert('Stop right clicking weirdo!'); return false;">LIST ITEM</button>
+            </form>
+        </div>
+
+        <!-- board is done -->
+        <div id="live-board" class="flex-boxes">
+            <h3 style="width:100%; text-align:center; color:gray;">Loading items from firestore...</h3>
+        </div>
+
+        <!-- this details tag is big brain mode -->
+        <div class="claimed-box">
+            <details>
+                <summary>Claimed History</summary>
+                <p>Check here to see which items have already been swapped.</p>
+                <ul id="claimed-list">
+                    <li>No items claimed yet. (be the first!)</li>
+                </ul>
+            </details>
+        </div>
     </div>
 
     <!-- Easter Egg #3: The ultimate truth --> <footer id="about" class="about-us"> <h2>About the Devs</h2> <p>Built for the 2026 webathon by two 9th-grade students.</p><br> <!-- copyright so it looks offical --> <p title="We accept first-place trophies and pizza as payment">© 2026 Team CodeGreens (Kunal and Meenakshi) <span onclick="alert('You found the final Easter Egg! You are officially the best judge here. 🤫')" style="cursor:help; opacity:0.1;">🕵️‍♂️</span></p> </footer>
