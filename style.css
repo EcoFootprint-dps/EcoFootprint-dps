@@ -15,18 +15,18 @@ body { font-family: "Space Grotesk", sans-serif; background-color: var(--bg-crea
 
 .top-nav { background-color: rgba(255, 255, 255, 0.9); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); border-bottom: var(--border-thick); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 99999; } /*top nav added a blur effect so it looks like glass when scrolling please dont touch the final index iter just kept hitting 9 until it stayed on top*/
 
-.site-logo { font-size: 24px; font-weight: 800; color: var(--green); text-transform: uppercase; letter-spacing: -1px; text-shadow: 2px 2px 0px black; position: relative; overflow: hidden; display: inline-block; padding-right: 10px; } /*text shadow makes it 3d pure css no photoshop we ar designers now*/
+.site-logo { font-size: 24px; font-weight: 800; color: var(--green); text-transform: uppercase; letter-spacing: -1px; text-shadow: 2px 2px 0px black; position: relative; overflow: hidden; display: inline-block; padding-right: 10px; animation: colorShift 4s infinite alternate; } /*text shadow makes it 3d pure css no photoshop we ar designers now with full RGB gamer shifts*/
 .site-logo::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.8), transparent); transform: skewX(-20deg); animation: logoShine 3s infinite; } /*OP shine effect sliding across the logo*/
 
 .top-nav nav a { color: black; text-decoration: none; font-weight: 700; margin-left: 20px; cursor: pointer; display: inline-block; }
 .top-nav nav a:hover { color: var(--green); border-bottom: 3px solid var(--green); transform: translateY(-3px) scale(1.05); } /*the little jump effect literally spent 43 minutes on this one line now it scales too*/
 
 .banner { background-color: var(--green); color: black; text-align: center; padding: 80px 20px; border-bottom: 8px solid black; } /*hero banner area if u make the padding smaller it looks squished plsdont do it*/
-.banner h1 { font-size: 4rem; margin-bottom: 20px; text-shadow: 5px 5px 0px white; animation: fadeInUp 0.8s ease-out; letter-spacing: -2px; }
+.banner h1 { font-size: 4rem; margin-bottom: 20px; text-shadow: 5px 5px 0px white; animation: fadeInUp 0.8s ease-out, floatInfinite 5s ease-in-out infinite alternate; letter-spacing: -2px; } /*heading floats now too*/
 .banner p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 30px auto; font-weight: 600; text-shadow: 1px 1px 0px white; }
 
-.big-btn { display: inline-block; background-color: white; color: black; padding: 15px 30px; font-size: 1.2rem; font-weight: 800; text-decoration: none; border: var(--border-thick); box-shadow: 6px 6px 0px black; cursor: pointer; } /*big chunky button giving very muchvibesthe judges would love that*/
-.big-btn:hover { background-color: black; color: var(--green); transform: translate(-3px, -3px) scale(1.02); box-shadow: 12px 12px 0px var(--green); }
+.big-btn { display: inline-block; background-color: white; color: black; padding: 15px 30px; font-size: 1.2rem; font-weight: 800; text-decoration: none; border: var(--border-thick); box-shadow: 6px 6px 0px black; cursor: pointer; animation: glowPulse 2s infinite alternate; } /*big chunky button giving very muchvibesthe judges would love that plus infinite glow*/
+.big-btn:hover { background-color: black; color: var(--green); transform: translate(-3px, -3px) scale(1.02); box-shadow: 12px 12px 0px var(--green); animation: none; }
 .big-btn:active { transform: translate(4px, 4px) scale(0.98); box-shadow: 0px 0px 0px black; } /*satisfying click physics doing this instead of my actual homework*/
 
 .threats-wrapper { padding: 80px 20px; background-color: transparent; } /*threats section*/
@@ -34,8 +34,8 @@ body { font-family: "Space Grotesk", sans-serif; background-color: var(--bg-crea
 .main-heading:hover { transform: scale(1.05) rotate(-1deg); } /*headings jump when you mouse over them because we are extra*/
 
 .flex-boxes { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; } /*idk what im doing from stackoverlow   */
-.info-box { background-color: white; border: var(--border-thick); padding: 30px; width: 320px; text-align: center; box-shadow: 8px 8px 0px black; cursor: crosshair; }
-.info-box:hover { transform: translateY(-8px) rotate(2deg) scale(1.02); box-shadow: 14px 14px 0px var(--green); border-color: var(--green); } /*it rotates 2 degrees if you make it 3 degrees it makes me nauseous so leave it at 2*/
+.info-box { background-color: white; border: var(--border-thick); padding: 30px; width: 320px; text-align: center; box-shadow: 8px 8px 0px black; cursor: crosshair; animation: floatInfinite 4s ease-in-out infinite alternate; } /*boxes literally floating in anti-gravity*/
+.info-box:hover { transform: translateY(-12px) rotate(2deg) scale(1.02); box-shadow: 14px 14px 0px var(--green); border-color: var(--green); animation: none; } /*it rotates 2 degrees if you make it 3 degrees it makes me nauseous so leave it at 2*/
 .info-box h3 { margin-bottom: 15px; color: black; font-size: 1.5rem; text-transform: uppercase; font-weight: 800; }
 .box-emoji { font-size: 3.5rem; margin-bottom: 15px; display: inline-block; filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.2)); }
 .info-box:hover .box-emoji { animation: pulse 1s infinite; transform: scale(1.2); } /*little easter egg css pulse animation goes brrrrr*/
@@ -49,8 +49,8 @@ body { font-family: "Space Grotesk", sans-serif; background-color: var(--bg-crea
 .q-wrap select { width: 100%; padding: 15px; margin-top: 5px; border: 3px solid black; font-size: 1rem; cursor: pointer; background: white; font-weight: 600; outline: none; font-family: "Space Grotesk", sans-serif; border-radius: 0; box-shadow: 4px 4px 0px rgba(0,0,0,0.1); } /*hiding the ugly default dropdown arrows was too hard so iter just made the box fat*/
 .q-wrap select:focus { background-color: var(--bg-cream); border-color: var(--orange); box-shadow: -4px 4px 0px var(--orange); transform: translateX(5px); } /*inputs now pop out when you click them*/
 
-.submit-button { width: 100%; background-color: var(--green); color: black; font-size: 1.2rem; font-weight: 800; padding: 15px; border: var(--border-thick); box-shadow: 6px 6px 0px black; cursor: pointer; margin-top: 20px; text-transform: uppercase; }
-.submit-button:hover { background-color: black; color: var(--green); transform: translate(-3px, -3px) scale(1.02); box-shadow: 12px 12px 0px var(--green); }
+.submit-button { width: 100%; background-color: var(--green); color: black; font-size: 1.2rem; font-weight: 800; padding: 15px; border: var(--border-thick); box-shadow: 6px 6px 0px black; cursor: pointer; margin-top: 20px; text-transform: uppercase; animation: glowPulse 2.5s infinite alternate; }
+.submit-button:hover { background-color: black; color: var(--green); transform: translate(-3px, -3px) scale(1.02); box-shadow: 12px 12px 0px var(--green); animation: none; }
 .submit-button:active { transform: translate(4px, 4px) scale(0.98); box-shadow: 0px 0px 0px black; }
 
 .end-screen { margin-top: 30px; padding: 30px; border: var(--border-thick); background-color: var(--yellow); text-align: center; animation: fadeInUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); } /*wait why is this yellow whatever iter dont have time to fix it*/
@@ -71,8 +71,8 @@ body { font-family: "Space Grotesk", sans-serif; background-color: var(--bg-crea
 .new-post-box input, .new-post-box select, .new-post-box textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 3px solid black; font-size: 1rem; font-weight: 600; outline: none; font-family: 'Space Grotesk', sans-serif; box-shadow: 3px 3px 0px rgba(0,0,0,0.05); }
 .new-post-box input:focus, .new-post-box textarea:focus, .new-post-box select:focus { border-color: var(--orange); transform: translateX(5px) scale(1.02); box-shadow: -5px 5px 0px var(--orange); } /*doing the pop out effect again because iter only know one trick*/
 
-.post-btn { width: 100%; background-color: var(--orange); color: black; font-weight: 800; border: 3px solid black; padding: 15px; font-size: 1.2rem; cursor: pointer; box-shadow: 6px 6px 0px black; margin-top: 10px; }
-.post-btn:hover { background-color: black; color: var(--orange); transform: translate(-3px, -3px) scale(1.02); box-shadow: 12px 12px 0px var(--orange); }
+.post-btn { width: 100%; background-color: var(--orange); color: black; font-weight: 800; border: 3px solid black; padding: 15px; font-size: 1.2rem; cursor: pointer; box-shadow: 6px 6px 0px black; margin-top: 10px; animation: glowPulse 3s infinite alternate; }
+.post-btn:hover { background-color: black; color: var(--orange); transform: translate(-3px, -3px) scale(1.02); box-shadow: 12px 12px 0px var(--orange); animation: none; }
 .post-btn:active { transform: translate(4px, 4px) scale(0.98); box-shadow: 0px 0px 0px black; }
 
 .claimed-box { max-width: 600px; margin: 40px auto; border: var(--border-thick); background: var(--bg-cream); padding: 20px; box-shadow: 6px 6px 0px rgba(0,0,0,0.2); } /*the new claimed items tracker   */
@@ -82,8 +82,8 @@ body { font-family: "Space Grotesk", sans-serif; background-color: var(--bg-crea
 .claimed-box li { margin-bottom: 10px; font-weight: 600; background: white; padding: 12px; border: 3px solid black; transform: translateX(0); transition: transform 0.2s; }
 .claimed-box li:hover { transform: translateX(10px); border-color: var(--green); } /*items slide over slightly when hovered in history*/
 
-.item-card { background-color: white; border: var(--border-thick); padding: 30px; width: 320px; box-shadow: 8px 8px 0px var(--yellow); display: flex; flex-direction: column; animation: fadeInUp 0.5s ease-out; cursor: crosshair; } /*item cards is the goat*/
-.item-card:hover { transform: translateY(-8px) rotate(-1deg) scale(1.02); box-shadow: 14px 14px 0px var(--yellow); border-color: var(--orange); }
+.item-card { background-color: white; border: var(--border-thick); padding: 30px; width: 320px; box-shadow: 8px 8px 0px var(--yellow); display: flex; flex-direction: column; animation: fadeInUp 0.5s ease-out, floatInfinite 4.5s ease-in-out infinite alternate; cursor: crosshair; } /*item cards is the goat with anti gravity*/
+.item-card:hover { transform: translateY(-12px) rotate(-1deg) scale(1.02); box-shadow: 14px 14px 0px var(--yellow); border-color: var(--orange); animation: none; }
 .item-card h3 { margin-bottom: 5px; color: black; font-size: 1.4rem; text-transform: uppercase; font-weight: 800; }
 .card-icon { font-size: 3.5rem; margin-bottom: 10px; filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.2)); }
 .lister-name { font-weight: 700; color: var(--orange); margin-bottom: 15px; font-size: 0.95rem; border-bottom: 3px solid black; padding-bottom: 5px; }
@@ -99,8 +99,11 @@ body { font-family: "Space Grotesk", sans-serif; background-color: var(--bg-crea
 @keyframes panGrid { 0% { background-position: 0 0; } 100% { background-position: 40px 40px; } } /*magic infinite scrolling grid math*/
 @keyframes logoShine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } } /*shine animation frames*/
 @keyframes moveStripes { 100% { background-position: 30px 0; } } /*makes the progress bar spin basically*/
+@keyframes floatInfinite { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } } /*infinite anti-gravity floating loop*/
+@keyframes colorShift { 0% { color: var(--green); text-shadow: 2px 2px 0px black; } 50% { color: var(--yellow); text-shadow: 3px 3px 0px var(--orange); } 100% { color: var(--green); text-shadow: 2px 2px 0px black; } } /*RGB gamer text shifting*/
+@keyframes glowPulse { 0% { box-shadow: 6px 6px 0px black; } 50% { box-shadow: 6px 6px 20px rgba(0,0,0,0.5), 6px 6px 0px black; } 100% { box-shadow: 6px 6px 0px black; } } /*radioactive button pulsing*/
 
 footer { background-color: black; color: white; text-align: center; padding: 60px 20px; font-weight: bold; border-top: 12px solid var(--green); } /*footer so big it looks like we have more content than we actually do*/
 footer h2 { color: var(--green); margin-bottom: 15px; font-size: 2.2rem; text-transform: uppercase; letter-spacing: 2px; text-shadow: 3px 3px 0px rgba(255,255,255,0.2); }
 
-@media (max-width: 768px) { .top-nav { flex-direction: column; gap: 15px; padding: 20px; } .banner h1 { font-size: 2.5rem; } .info-box, .item-card { width: 100%; max-width: 400px; } .flex-inputs { flex-direction: column; gap: 0; } .sim-area, .board-area, .threats-wrapper { padding: 40px 15px; } } /*mobile view so the judges dont complain so iter had to hardcode this do not touch*/
+@media (max-width: 768px) { .top-nav { flex-direction: column; gap: 15px; padding: 20px; } .banner h1 { font-size: 2.5rem; } .info-box, .item-card { width: 100%; max-width: 400px; animation: none; } .flex-inputs { flex-direction: column; gap: 0; } .sim-area, .board-area, .threats-wrapper { padding: 40px 15px; } } /*mobile view so the judges dont complain so iter had to hardcode this do not touch. disabled anti-gravity on mobile so phones dont explode*/
