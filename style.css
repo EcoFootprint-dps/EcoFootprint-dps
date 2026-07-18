@@ -1,5 +1,5 @@
-/* --- ECOFOOTPRINT: MASTER STYLE SHEET (PRODUCTION READY) --- */
-/* DEVS: KUNAL & MEENAKSHI | WEBATHON 2026 | OPTIMIZED FOR READABILITY */
+/* --- ECOFOOTPRINT: SYSTEM ARCHITECTURE --- */
+/* DEVS: KUNAL & MEENAKSHI | WEBATHON 2026 | POWERED BY CAFFEINE AND PURE PANIC */
 
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&display=swap");
 
@@ -13,6 +13,7 @@
     --spacing-lg: 120px;
 }
 
+/* i watched a 10min youtube video on 2x speed for these css variables, pls dont delete or the universe collapses */
 * { margin: 0; padding: 0; box-sizing: border-box; transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
 
 body { 
@@ -60,7 +61,7 @@ body {
 
 /* --- CONTENT SECTIONS --- */
 .threats-wrapper { padding: var(--spacing-lg) 20px; }
-.sim-area { padding: var(--spacing-lg) 20px; border-bottom: var(--border-thick); }
+.sim-area { padding: var(--spacing-lg) 20px; border-bottom: var(--border-thick); background-color: var(--green); }
 .board-area { padding: var(--spacing-lg) 20px; }
 
 .main-heading { 
@@ -72,36 +73,29 @@ body {
 .flex-boxes { display: flex; justify-content: center; gap: 60px; padding: 40px; flex-wrap: wrap; }
 
 .info-box { 
-    background: white; border: var(--border-thick); padding: 60px; width: 400px; 
+    background: white; border: var(--border-thick); padding: 50px; width: 400px; 
     box-shadow: var(--shadow); transition: transform 0.3s;
 }
 .info-box:hover { transform: translateY(-15px); }
 
-/* --- QUIZ & BOARD (OPTIMIZED FOR BREATHING ROOM) --- */
-.quiz-box { 
-    max-width: 700px; margin: 0 auto; background: white; 
-    padding: 80px; /* Increased padding to stop congestion */
-    border: var(--border-thick); box-shadow: var(--shadow);
-}
-
-.new-post-box { 
+/* --- QUIZ & BOARD (SPACED OUT FOR READABILITY) --- */
+.quiz-box, .new-post-box { 
     max-width: 700px; margin: 0 auto; background: white; 
     padding: 60px; border: var(--border-thick); box-shadow: var(--shadow);
 }
 
-.q-wrap { margin-bottom: 40px; } /* Added spacing between form questions */
-.q-wrap label { font-size: 1.3rem; font-weight: 800; margin-bottom: 15px; display: block; }
-.q-wrap select { width: 100%; padding: 18px; font-size: 1.1rem; border: 3px solid black; }
+.q-wrap { margin-bottom: 40px; }
+.q-wrap select { width: 100%; padding: 20px; margin-top: 10px; border: 3px solid black; }
 
 .submit-button, .post-btn { 
     width: 100%; background: var(--green); border: var(--border-thick); 
-    padding: 20px; font-size: 1.2rem; font-weight: 800; cursor: pointer; margin-top: 30px;
+    padding: 20px; font-size: 1.2rem; font-weight: 800; cursor: pointer; margin-top: 20px;
     text-transform: uppercase;
 }
 .submit-button:hover, .post-btn:hover { background: black; color: var(--green); }
 
 .item-card { 
-    background: white; border: var(--border-thick); padding: 50px; width: 350px; 
+    background: white; border: var(--border-thick); padding: 40px; width: 350px; 
     box-shadow: var(--shadow); display: flex; flex-direction: column;
 }
 
@@ -110,7 +104,7 @@ body {
     font-weight: 800; background: var(--yellow); cursor: pointer;
 }
 
-/* --- SYSTEM OVERRIDE / WINNER PROTOCOL --- */
+/* --- THE SYSTEM OVERRIDE (WINNER PROTOCOL) --- */
 .terminal-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: black; z-index: 9999; display: flex;
