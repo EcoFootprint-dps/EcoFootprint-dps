@@ -73,7 +73,10 @@ window.activateWinnerProtocol = () => {
     document.body.appendChild(banner);
     
     /* destroy it after 3 seconds so we can keep demoing */
-    setTimeout(() => { banner.remove(); }, 3000);
+    setTimeout(() => { 
+        banner.remove(); 
+        document.body.classList.remove('winner-mode'); /* toggle off so we dont permanently blind the judges */
+    }, 3000);
     
     console.log("Judges: 'Wow, such clean code.'");
 };
