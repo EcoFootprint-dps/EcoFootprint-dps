@@ -1,79 +1,133 @@
-import /*import firebase stuff idk what this is tysm yt tutorials*/ { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js"; /*this works*/
-import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, updateDoc, doc, serverTimestamp /*added this so kids with broken laptop clocks dont mess up the sorting*/ } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+/* 
+    DEVS: Kunal and Meenakshi 
+    STATUS: Powered by energy drinks and stress 
+    WARNING: DO NOT DELETE ANYTHING OR WE CRY
+*/
 
-const firebaseConfig = { apiKey: "AIzaSyBNO8SiOBW49CqL7YgHd572pF9mikE7ABo", authDomain: "ecofootprint-9c4ed.firebaseapp.com", projectId: "ecofootprint-9c4ed", storageBucket: "ecofootprint-9c4ed.firebasestorage.app", messagingSenderId: "425267033599", appId: "1:425267033599:web:3554770c24a204594ba3ca", measurementId: "G-NCNFZTHKS4" }; /*if you change a single quote mark in here the entire database crashes this is not safe pls hacker if seein this dont steal our projct */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, updateDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
-const app = initializeApp(firebaseConfig); /*booting up the database seems like a hacker thing*/ const db = getFirestore(app);
+const firebaseConfig = { apiKey: "AIzaSyBNO8SiOBW49CqL7YgHd572pF9mikE7ABo", authDomain: "ecofootprint-9c4ed.firebaseapp.com", projectId: "ecofootprint-9c4ed", storageBucket: "ecofootprint-9c4ed.firebasestorage.app", messagingSenderId: "425267033599", appId: "1:425267033599:web:3554770c24a204594ba3ca", measurementId: "G-NCNFZTHKS4" }; 
+/* if you change a single letter in this config object the whole db dies and i will cry */
 
-/*SECURITY UPGRADE: stops bad actors from injecting html and ruining the board. we are cybersecurity experts now*/ const sanitizeHTML = (str) => { if (!str) return ""; let temp = document.createElement('div'); temp.textContent = str; return temp.innerHTML; };
+const app = initializeApp(firebaseConfig); 
+const db = getFirestore(app);
 
-/*quiz section logic dont break this its fragile lols*/ document.getElementById('footprintForm').addEventListener('submit', async function(event) { event.preventDefault(); /*if you forget this the page reloads*/
+/* SECURITY: we are cybersecurity experts now (sanitize strings so hackers cant ruin our board lol) */
+const sanitizeHTML = (str) => { if (!str) return ""; let temp = document.createElement('div'); temp.textContent = str; return temp.innerHTML; };
+
+/* quiz logic: dont break this it took me 3 hours of debugging */
+document.getElementById('footprintForm').addEventListener('submit', async function(event) { 
+    event.preventDefault(); /* god bless preventDefault */
     
-    let q1 = parseInt(document.getElementById("q1").value, 10) || 0; /*grabbing the answers and converting to real numbers bcuz javascript is dumb*/ let q2 = parseInt(document.getElementById("q2").value, 10) || 0; /*using base 10 because index learned that today*/ let q3 = parseInt(document.getElementById("q3").value, 10) || 0; let q4 = parseInt(document.getElementById("q4").value, 10) || 0; /*index ran out of good variable names*/ let q5 = parseInt(document.getElementById("q5").value, 10) || 0; /*a5 is apiece of paper*/
+    let q1 = parseInt(document.getElementById("q1").value, 10) || 0; 
+    let q2 = parseInt(document.getElementById("q2").value, 10) || 0; 
+    let q3 = parseInt(document.getElementById("q3").value, 10) || 0; 
+    let q4 = parseInt(document.getElementById("q4").value, 10) || 0; 
+    let q5 = parseInt(document.getElementById("q5").value, 10) || 0; 
     let totalScore = q1 + q2 + q3 + q4 + q5;
 
-    addDoc(collection(db, 'simulatorScores'), { score: totalScore, date: serverTimestamp() /*using the google server time so its completely bulletproof*/ }).catch(error => { console.log("bruh firebase error wtf: ", error); }); /*trying to save to database if the school network drops this is gonna fail so hard wll be cooked*/ /*checking console is basically screaming into the space*/
+    /* praying the school wifi doesnt block this firebase request */
+    addDoc(collection(db, 'simulatorScores'), { score: totalScore, date: serverTimestamp() }).catch(error => { console.log("bruh firebase error: ", error); }); 
 
     let feedbackTextElement = document.getElementById("feedbackText"); let feedbackEmoji = ""; let barColor = "";
 
-    if (totalScore >= 80) { /*judging the user heavily based on score*/ feedbackEmoji = "🌍"; barColor = "green"; feedbackTextElement.innerText = "🔥 INCREDIBLE! You implemented a true sustainable framework. By shifting to renewables and enforcing a circular economy, we can reach Net-Zero!"; feedbackTextElement.style.color = "green"; } else if (totalScore >= 40 && totalScore < 80) { feedbackEmoji = "⚠️"; barColor = "orange"; feedbackTextElement.innerText = "🌱 A GOOD START. But half-measures aren't enough. We need systemic shifts in lots of things. Try again!"; feedbackTextElement.style.color = "orange"; } else { feedbackEmoji = "❌"; /*literal doomsday scenario*/ barColor = "red"; feedbackTextElement.innerText = "🚨 DISASTER. Continuing the status quo guarantees severe global warming. We need massive policy shifts immediately."; feedbackTextElement.style.color = "red"; }
+    if (totalScore >= 80) { feedbackEmoji = "🌍"; barColor = "green"; feedbackTextElement.innerText = "🔥 INCREDIBLE! You implemented a true sustainable framework."; feedbackTextElement.style.color = "green"; } 
+    else if (totalScore >= 40 && totalScore < 80) { feedbackEmoji = "⚠️"; barColor = "orange"; feedbackTextElement.innerText = "🌱 A GOOD START. But half-measures aren't enough."; feedbackTextElement.style.color = "orange"; } 
+    else { feedbackEmoji = "❌"; barColor = "red"; feedbackTextElement.innerText = "🚨 DISASTER. Continuing the status quo guarantees severe global warming."; feedbackTextElement.style.color = "red"; }
 
-    document.getElementById("resultEmoji").innerText = feedbackEmoji; /*tysm stackoverflow again*/ document.getElementById('footprintForm').style.display = 'none'; document.getElementById("resultBox").style.display = "block";
+    document.getElementById("resultEmoji").innerText = feedbackEmoji; 
+    document.getElementById('footprintForm').style.display = 'none'; 
+    document.getElementById("resultBox").style.display = "block";
     let currentScore = 0; document.getElementById("scoreText").innerText = "0";
 
-    let scoreCounter = setInterval(function() { /*ok so index watched a 40 minute youtube video just to make this number count up it looks so professional tho the judges are gonna love it*/ if (currentScore >= totalScore) { clearInterval(scoreCounter); /*stop counting or it goes to infinity*/ document.getElementById("scoreText").innerText = totalScore; } else { currentScore++; document.getElementById("scoreText").innerText = currentScore; } }, 20); /*20ms is fast enough so the teacher doesnt get bored waiting*/
-    setTimeout(() => { document.getElementById("barFill").style.width = totalScore + "%"; document.getElementById("barFill").style.backgroundColor = barColor; }, 150); /*wait a tiny bit then slide the bar across pure css magic combined with js index am a literal hacker*/
+    /* this counter animation took me way too long to figure out but it looks cool */
+    let scoreCounter = setInterval(function() { if (currentScore >= totalScore) { clearInterval(scoreCounter); document.getElementById("scoreText").innerText = totalScore; } else { currentScore++; document.getElementById("scoreText").innerText = currentScore; } }, 20); 
+    setTimeout(() => { document.getElementById("barFill").style.width = totalScore + "%"; document.getElementById("barFill").style.backgroundColor = barColor; }, 150); 
 });
 
-/*some logic*/ const boardCollection = collection(db, "listedItems"); const boardQuery = query(boardCollection, orderBy("timestamp", "desc")); /*sorts newest first so it looks active or it should*/
+/* database magic: this is basically sorcery */
+const boardCollection = collection(db, "listedItems"); 
+const boardQuery = query(boardCollection, orderBy("timestamp", "desc")); 
 
-onSnapshot(boardQuery, (snapshot) => { /*this is basically magic it just knows when stuff changes kinda creepy tbh*/
-    let liveBoard = document.getElementById('live-board'); let claimedList = document.getElementById('claimed-list'); /*the dropdown list thats made*/
-    liveBoard.innerHTML = ""; /*empty these out or it duplicates forever it happened at 11pm and my laptop crashed*/ claimedList.innerHTML = "";
+onSnapshot(boardQuery, (snapshot) => { 
+    let liveBoard = document.getElementById('live-board'); 
+    let claimedList = document.getElementById('claimed-list'); 
+    liveBoard.innerHTML = ""; 
+    claimedList.innerHTML = "";
     let itemCount = 0; let claimedCount = 0;
 
     snapshot.forEach((docSnap) => {
         let itemData = docSnap.data(); let itemId = docSnap.id;
-        /*cleaning the data so nobody can inject fake html into the page*/ let safeName = sanitizeHTML(itemData.name); let safeClaimedBy = sanitizeHTML(itemData.claimedBy); let safeLister = sanitizeHTML(itemData.lister); let safeDesc = sanitizeHTML(itemData.description);
+        let safeName = sanitizeHTML(itemData.name); 
+        let safeClaimedBy = sanitizeHTML(itemData.claimedBy); 
+        let safeLister = sanitizeHTML(itemData.lister); 
+        let safeDesc = sanitizeHTML(itemData.description);
 
-        if (itemData.status === "claimed") { /*logic if claimed hide it in the history dropdown if not show on the main board*/ claimedCount++; claimedList.innerHTML += `<li>✅ <strong>${safeName}</strong> was snagged by ${safeClaimedBy}!</li>`; } else { itemCount++; /*writing html inside js feels illegal but stackoverflow says its fine*/ let htmlCard = `<div class="item-card" id="card-${itemId}"><div class="card-icon">${itemData.icon}</div><h3>${safeName}</h3><p class="lister-name">Listed by: ${safeLister}</p><p>${safeDesc}</p><button class="grab-btn" id="btn-${itemId}" onclick="claimIt('${itemId}')">CLAIM FOR FREE</button></div>`; liveBoard.innerHTML += htmlCard; }
+        if (itemData.status === "claimed") { claimedCount++; claimedList.innerHTML += `<li>✅ <strong>${safeName}</strong> was snagged by ${safeClaimedBy}!</li>`; } 
+        else { itemCount++; let htmlCard = `<div class="item-card" id="card-${itemId}"><div class="card-icon">${itemData.icon}</div><h3>${safeName}</h3><p class="lister-name">Listed by: ${safeLister}</p><p>${safeDesc}</p><button class="grab-btn" id="btn-${itemId}" onclick="claimIt('${itemId}')">CLAIM FOR FREE</button></div>`; liveBoard.innerHTML += htmlCard; }
     });
 
-    if (itemCount === 0) { liveBoard.innerHTML = "<h3 style='width:100%;text-align:center;color:gray;'>No items available right now. Be the first to list something!</h3>"; } /*if the database is empty it looks dumb so we put a placeholder message so dont seem dumb*/
+    if (itemCount === 0) { liveBoard.innerHTML = "<h3 style='width:100%;text-align:center;color:gray;'>Empty board... sadge. Be the first to list!</h3>"; } 
     if (claimedCount === 0) { claimedList.innerHTML = "<li>No items claimed yet... be the first!</li>"; }
 });
 
-document.getElementById('addItemForm').addEventListener('submit', async(event) => { /*submit form for new item this part is kinda cool actually*/
-    event.preventDefault(); let submitBtn = document.querySelector(".post-btn"); let originalText = submitBtn.innerText; submitBtn.innerText = "UPLOADING..."; /*make the button look like its thinking so kids dont spam click it*/
+document.getElementById('addItemForm').addEventListener('submit', async(event) => { 
+    event.preventDefault(); let submitBtn = document.querySelector(".post-btn"); let originalText = submitBtn.innerText; submitBtn.innerText = "UPLOADING..."; 
 
-    addDoc(collection(db, "listedItems"), { name: document.getElementById('newItemName').value, icon: document.getElementById('newItemIcon').value, lister: document.getElementById('newListerName').value, description: document.getElementById('newItemDesc').value, status: "available", timestamp: serverTimestamp() /*actually bulletproof time, doesn't depend on the student's broken laptop clock*/ }).then(() => { /*throw it into the cloud*/ alert("It's live on the board! (unless the wifi blocked it)"); document.getElementById('addItemForm').reset(); submitBtn.innerText = originalText; }).catch((error) => { console.log(error); alert("network error bro, our school blocklist probably blocked firebase again smh"); submitBtn.innerText = originalText; });
+    addDoc(collection(db, "listedItems"), { name: document.getElementById('newItemName').value, icon: document.getElementById('newItemIcon').value, lister: document.getElementById('newListerName').value, description: document.getElementById('newItemDesc').value, status: "available", timestamp: serverTimestamp() }).then(() => { alert("Live! (if wifi allows it)"); document.getElementById('addItemForm').reset(); submitBtn.innerText = originalText; }).catch((error) => { console.log(error); alert("Network error... school firewall probably hates us."); submitBtn.innerText = originalText; });
 });
 
-window.claimIt = function(itemId) { /*putting this on window so the inline html onclick can actually see it if you dont do this the button literally says function not found and you look like an idiot*/
-    let userName = prompt("♻️ Awesome! Enter your name & class so the owner knows who to give it to: (separate by comma)");
-    if (!userName || userName.trim() === "") { return; } /*if they hit cancel or type nothing just stop*/
+window.claimIt = function(itemId) { 
+    let userName = prompt("♻️ Enter your name & class (separate by comma):");
+    if (!userName || userName.trim() === "") { return; } 
 
-    let card = document.getElementById("card-" + itemId); let btn = document.getElementById("btn-" + itemId);
-    if (btn) { btn.innerText = "CLAIMED!"; btn.style.background = "green"; btn.disabled = true; } /*visually lock it instantly so nobody else tries to click it while the database catches up*/
+    let card = document.getElementById("card-" + itemId); 
+    let btn = document.getElementById("btn-" + itemId);
+    if (btn) { btn.innerText = "CLAIMED!"; btn.style.background = "green"; btn.disabled = true; } 
 
-    setTimeout(function() { /*fake delay so it looks like its doing hard math before updating the database*/ updateDoc(doc(db, "listedItems", itemId), { status: "claimed", claimedBy: userName }).catch((error) => { console.log("err: " + error); alert("🚨 ERROR: Couldn't connect to server! Try turning off your VPN maybe?"); if (btn) { btn.innerText = "CLAIM FOR FREE"; btn.style.background = ""; btn.disabled = false; } /*undo the visual lock if it failed*/ }); }, 800);
+    setTimeout(function() { 
+        updateDoc(doc(db, "listedItems", itemId), { status: "claimed", claimedBy: userName }).catch((error) => { console.log("err: " + error); alert("🚨 Server error! Try turning off your VPN maybe?"); if (btn) { btn.innerText = "CLAIM FOR FREE"; btn.style.background = ""; btn.disabled = false; } }); 
+    }, 800);
 };
 
-window.resetQuiz = () => { /*resetting the quiz index guess*/ document.getElementById("footprintForm").reset(); document.getElementById("scoreText").innerText = "0"; document.getElementById("barFill").style.width = "0%"; document.getElementById("resultBox").style.display = "none"; /*swap the display boxes back so its not weird*/ document.getElementById("footprintForm").style.display = "block"; window.scrollTo(0, document.getElementById('sim').offsetTop); /*scroll them back up so they arent staring at the bottom of the page confued*/ };
+window.resetQuiz = () => { 
+    document.getElementById("footprintForm").reset(); 
+    document.getElementById("scoreText").innerText = "0"; 
+    document.getElementById("barFill").style.width = "0%"; 
+    document.getElementById("resultBox").style.display = "none"; 
+    document.getElementById("footprintForm").style.display = "block"; 
+    window.scrollTo(0, document.getElementById('sim').offsetTop); 
+};
 
-/* WINNER PROTOCOL: call this to show the judges we are absolute legends */
+/* WINNER PROTOCOL: THE GOD-TIER FLEX */
 window.activateWinnerProtocol = () => {
-    /* turn on gold mode */
+    // 1. Shake the screen and apply gold mode
+    document.body.classList.add('shake');
     document.body.classList.add('winner-mode');
     
-    /* create the victory banner */
+    // 2. Spawn 60 pieces of confetti for extra OP impact
+    for(let i = 0; i < 60; i++) {
+        let c = document.createElement('div');
+        c.className = 'confetti';
+        c.style.left = Math.random() * 100 + 'vw';
+        c.style.animationDelay = Math.random() * 2 + 's';
+        document.body.appendChild(c);
+    }
+    
+    // 3. Create the massive text banner for maximum drama
     let banner = document.createElement('div');
     banner.className = 'victory-banner';
-    banner.innerHTML = '<h1 style="font-size: 8rem; color: #ffd700; text-shadow: 10px 10px 0px black;">WINNERS! 🏆</h1>';
+    banner.innerHTML = '<h1 style="font-size: 10rem; color: #ffd700; text-shadow: 15px 15px 0px black; font-family: sans-serif;">WINNERS! 🏆</h1>';
     document.body.appendChild(banner);
     
-    /* destroy it after 3 seconds so we can keep demoing */
-    setTimeout(() => { banner.remove(); }, 3000);
+    // 4. Cleanup everything after 4 seconds so we can actually keep demoing
+    setTimeout(() => {
+        document.body.classList.remove('shake');
+        document.body.classList.remove('winner-mode');
+        banner.remove();
+        document.querySelectorAll('.confetti').forEach(e => e.remove());
+    }, 4000);
     
-    console.log("Judges: 'Wow, such clean code.'");
+    console.log("Judges: 'Wait... did they just animate the DOM like that?'");
 };
