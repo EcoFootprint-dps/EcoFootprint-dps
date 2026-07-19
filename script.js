@@ -127,6 +127,7 @@ window.onload = function() {
     };
 
     /* board stuff */
+    /* board stuff */
     onSnapshot(query(collection(database, "listedItems"), orderBy("timestamp", "desc")), function(s) {
         var b = document.getElementById('live-board'), l = document.getElementById('claimed-list');
         b.innerHTML=""; l.innerHTML=""; var i_c=0, c_c=0;
@@ -139,6 +140,17 @@ window.onload = function() {
                 b.innerHTML += "<div class='item-card neo-border hover-lift' id='card-"+iid+"'><div class='card-icon'>"+o.icon+"</div><h3>"+n1+"</h3><p class='lister-name mono-text'>Listed by: "+l3+"</p><p>"+d4+"</p><button class='grab-btn brutal-btn' id='btn-"+iid+"' onclick='claimIt(\""+iid+"\")'>CLAIM FOR FREE ⚡</button></div>"; 
             }
         });
+
+        /* --- UPDATED GAMIFICATION METRIC --- */
+        var el = document.getElementById('landfillCounter'); 
+        if(el) {
+            var co2Saved = (c_c * 4.5).toFixed(1); // 4.5kg of CO2 saved per item
+            el.innerHTML = c_c + "<div style='font-size: 0.35em; color: var(--yellow); text-shadow: 0 0 10px rgba(255,230,0,0.5); margin-top: 12px; font-family: monospace; letter-spacing: 0px;'>~" + co2Saved + " kg CO₂ saved!</div>";
+        }
+
+        if(i_c==0) b.innerHTML="<h3 style='width:100%;text-align:center;color:var(--text-color);' class='blink-text'>No items available right now. Be the first to list something!</h3>";
+        if(c_c==0) l.innerHTML="<li class='empty-state'>No items claimed yet... be the first!</li>";
+    });
 
         var el = document.getElementById('landfillCounter'); if(el) el.innerText=c_c;
         if(i_c==0) b.innerHTML="<h3 style='width:100%;text-align:center;color:var(--text-color);' class='blink-text'>No items available right now. Be the first to list something!</h3>";
