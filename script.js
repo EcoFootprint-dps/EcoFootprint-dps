@@ -7,6 +7,7 @@ var firebaseApp = initializeApp(conf), database = getFirestore(firebaseApp);
 
 /* security stuff from stackoverflow */
 function cln(s){ if(!s)return""; var d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+
 /* --- KONAMI CODE (Cleaned Up) --- */
 const konamiCode = ['arrowup', 'arrowup', 'arrowdown', 'arrowdown', 'arrowleft', 'arrowright', 'arrowleft', 'arrowright', 'b', 'a']; 
 let konamiPosition = 0;
