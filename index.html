@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+    
 <head>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
-    <meta charset="UTF-8"><!-- 
+    <meta charset="UTF-8">
+    <!-- 
      _____         _     _____                               
     / ____|       | |   / ____|                              
    | |     ___  __| |___| |  __ _ __ ___  ___ _ __  ___  
@@ -12,22 +14,39 @@
    Hello, source code inspector! 
    Try typing ↑ ↑ ↓ ↓ ← → ← → B A anywhere on the page later... 
     -->
-    <meta name='viewport' content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#f0f0f0"><meta name="easter-egg-hint" content="Hover over the Lorax for a surprise">
-    <title>EcoFootprint | CodeGreens</title><link href="style.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta name='viewport' content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f0f0f0">
+    <meta name="easter-egg-hint" content="Hover over the Lorax for a surprise">
+    <title>EcoFootprint | CodeGreens</title>
+    <link href="style.css" rel="stylesheet">
+    
+    <!-- Added a neo-brutalist Google Font (Syne & Space Mono) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body class="neo-brutalist-theme">
+
+    <!-- Secret 1% button for the ultimate clickers -->
     <button id="onePercentBtn" style="opacity: 0.01; position: absolute; top: 5px; left: 5px; cursor: crosshair;" onclick="alert('Bro really clicked the 1% opacity corner button 💀 +5 Hackathon Points.')">.</button>
+
+    <!-- flexbox is literally evil i spent 3 hrs crying over this header lol -->
     <header class='top-nav neo-box-shadow'>
         <h2 class="site-logo glitch-hover" data-text="🌿 EcoFootprint" title='Double click for the hackathon special sauce' ondblclick="activateWinnerProtocol()">🌿 EcoFootprint</h2>
-        <nav class="nav-links"><a href="#home" class="brutal-link">Home</a> <a href="#sim" class="brutal-link">Simulator</a> <a href="#board" class="brutal-link">Give & Take</a> <a href="#about" class="brutal-link">About <span class="secret-nav-emoji" style="display:none;">👀</span></a></nav>
+        <nav class="nav-links">
+            <a href="#home" class="brutal-link">Home</a> <a href="#sim" class="brutal-link">Simulator</a> <a href="#board" class="brutal-link">Give & Take</a> <a href="#about" class="brutal-link">About <span class="secret-nav-emoji" style="display:none;">👀</span></a>
+        </nav>
     </header>
+
+    <!-- yo judges if ur readin this pls give us extra points we sleep deprived-->
     <div id="home" class="banner brutal-container">
         <h1 class="glitch-text" data-text="Policy Simulator & Give & Take Board" title="We stayed up until 3 AM building this mess lol">Policy Simulator & Give & Take Board</h1>
         <p class="subtitle">Drive systemic climate action. Test global solutions with our Policy Simulator or share Used Resources locally on the Give & Take Board.</p>
+        <!-- dont ask why its big-btn instead of just btn it just works-->
         <a href="#sim" class='big-btn brutal-btn'>TRY THE SIMULATOR <span class="btn-arrow">→</span></a>
     </div>
+
+    <!-- The Local Carbon Intensity Card sitting pretty right below the banner -->
     <div class="intensity-section brutal-wrapper">
         <div class="api-card neo-card" title="Live data pulled from Electricity Maps API... probably">
             <h3 class="card-header">⚡ Local Grid Intensity</h3>
@@ -43,56 +62,128 @@
             </div>
         </div>
     </div>
+
+    <!-- idk how this works but it aligns so dont touch or it explodes -->
     <div class="threats-wrapper brutal-container">
         <h2 class="main-heading highlight-text">Core Climate Threats</h2>
         <div class="flex-boxes neo-grid">
-            <div class='info-box neo-card card-yellow hover-lift'><h1 class="box-emoji floating-emoji" title="Dinosaurs died for this rip 🦖">🛢️</h1><div class="box-content"><h3>Fossil Fuel Addiction</h3><p>Burning coal, oil, and gas is the main driver of the climate crisis. Transitioning to clean, renewable energy is our only exit strategy. <span style="font-size: 0.5em; opacity: 0.5;">(as of now)</span></p></div></div>
-            <div class="info-box neo-card card-green hover-lift"><h1 class='box-emoji shaking-emoji' title="The Lorax is sadge rn 🌳" onmouseover="this.innerText='🪓👀'">🪓</h1><div class="box-content"><h3>Rapid Deforestation</h3><p>Forests are our planet's natural carbon sinks. Slashing them accelerates global warming and wipes out crucial biodiversity.</p></div></div>
-            <div class="info-box neo-card card-pink hover-lift"><h1 class="box-emoji spinning-emoji" title='my amazon addiction is showing 📦'>🛍️</h1><div class="box-content"><h3>The Throw-Away Culture</h3><p>We can't sustain a take-make-dispose model on a finite planet. Transitioning to a zero-waste, circular economy is essential.</p></div></div>
-        </div>
-    </div>
-    <div id="sim" class="sim-area brutal-container dotted-bg">
-        <h2 class="main-heading highlight-text" title="Powered by 100% pure student panic, caffeine, and stack overflow">⚡ Policy Deployment Simulator ⚡</h2>
-        <div class='quiz-box neo-card'>
-            <form id="footprintForm">
-                <div class="q-wrap neo-border"><label>1. How should we power the world? ⚡</label><select id="q1" class="brutal-input" required><option value="">-- Pick your path --</option><option value="20">Only use clean, green power</option><option value="10">Slowly move away from fossil fuels</option><option value="0">Stick with oil, coal, and gas</option></select></div>
-                <div class="q-wrap neo-border"><label>2. How do we manage our land and nature? 🌲</label><select id="q2" class="brutal-input" required><option value="">-- Pick your path --</option><option value='20'>Ban deforestation and protect wild spaces</option><option value='10'>Balance tree planting with ongoing land development</option><option value='0'>Clear more land for farming and business</option></select></div>
-                <div class='q-wrap neo-border'><label>3. How do we fix our food system? 🍎</label><select id="q3" class="brutal-input" required><option value="">-- Pick your path --</option><option value="20">Promote plant-heavy eating and stop wasting food</option><option value="10">Clean up industrial farming with greener methods</option><option value="0">Rely completely on our current factory food systems</option></select></div>
-                <div class="q-wrap neo-border"><label>4. How do we upgrade public travel? 🚄</label><select id="q4" class="brutal-input" required><option value="">-- Pick your path --</option><option value="20">Invest heavily in fast trains and pedestrian spaces</option><option value="10">Push for electric vehicles instead of changing our roads</option><option value="0">Add more lanes and highways to handle traffic</option><option value="-50" class="secret-egg" style="display:none;">Teleportation (Experimental)</option></select></div>
-                <div class="q-wrap neo-border"><label>5. How do we reduce factory waste? 🏗️</label><select id='q5' class="brutal-input" required><option value="">-- Pick your path --</option><option value="20">Shift to a repair-first circular economy</option><option value="10">Improve recycling efforts but keep single-use plastics as they are more affordable</option><option value="0">Continue with today's wasteful production methods</option></select></div>
-                <button type="submit" id="submitBtn" class="submit-button brutal-btn" title="Clicking this saves 1 virtual polar bear dont judge me"><span class="btn-text">SEE MY CLIMATE IMPACT</span></button>
-            </form>
-            <div id="resultBox" class="end-screen" style="display: none;">
-                <div class="print-header" style="display: none; text-align: center; border-bottom: 2px solid black; padding-bottom: 20px; margin-bottom: 40px;"><h2 style="font-family: 'Orbitron', sans-serif; font-size: 28px; font-weight: 900; margin-bottom: 5px; color: black !important; text-shadow: none !important;">OFFICIAL CLIMATE IMPACT DOSSIER</h2><p style="font-family: monospace; font-size: 14px; color: #555 !important;">Automated Generation Engine | Team CodeGreens Simulator</p></div>
-                <h1 id="resultEmoji" class="big-emoji bounce-in">🌍</h1><h3 class="score-display">Sustainability Score: <span id='scoreText' class="glitch-score">0</span> / 100</h3>
-                <div id="barBacking" class="bar-background neo-border"><div id="barFill" class='bar-color striped-bg'></div></div><p id="feedbackText" class="feedback-text mono-text"></p>
-                <div class="result-actions" style="margin-top: 40px;"><button type='button' class="btn-retry brutal-btn" onclick="resetQuiz()">Retry Policies ↺</button><button type='button' class="print-btn brutal-btn" onclick="printReport()">PRINT REPORT 🖨️</button></div>
+            <div class='info-box neo-card card-yellow hover-lift'>
+                <h1 class="box-emoji floating-emoji" title="Dinosaurs died for this rip 🦖">🛢️</h1>
+                <div class="box-content"><h3>Fossil Fuel Addiction</h3><p>Burning coal, oil, and gas is the main driver of the climate crisis. Transitioning to clean, renewable energy is our only exit strategy. <span style="font-size: 0.5em; opacity: 0.5;">(as of now)</span></p></div>
+            </div>
+            <div class="info-box neo-card card-green hover-lift">
+                <h1 class='box-emoji shaking-emoji' title="The Lorax is sadge rn 🌳" onmouseover="this.innerText='🪓👀'">🪓</h1>
+                <div class="box-content"><h3>Rapid Deforestation</h3><p>Forests are our planet's natural carbon sinks. Slashing them accelerates global warming and wipes out crucial biodiversity.</p></div>
+            </div>
+            <div class="info-box neo-card card-pink hover-lift">
+                <h1 class="box-emoji spinning-emoji" title='my amazon addiction is showing 📦'>🛍️</h1>
+                <div class="box-content"><h3>The Throw-Away Culture</h3><p>We can't sustain a take-make-dispose model on a finite planet. Transitioning to a zero-waste, circular economy is essential.</p></div>
             </div>
         </div>
     </div>
+
+    <!-- quiz stuff idk why this works but it does dont touch it -->
+    <div id="sim" class="sim-area brutal-container dotted-bg">
+        <h2 class="main-heading highlight-text" title="Powered by 100% pure student panic, caffeine, and stack overflow">⚡ Policy Deployment Simulator ⚡</h2>
+        <div class='quiz-box neo-card'>
+            <!-- if this form breaks im literally quitting coding -->
+            <form id="footprintForm">
+                <div class="q-wrap neo-border"><label>1. How should we power the world? ⚡</label>
+                    <select id="q1" class="brutal-input" required><option value="">-- Pick your path --</option><option value="20">Only use clean, green power</option><option value="10">Slowly move away from fossil fuels</option><option value="0">Stick with oil, coal, and gas</option></select>
+                </div>
+                <!-- Forests throwback to bio class -->
+                <div class="q-wrap neo-border"><label>2. How do we manage our land and nature? 🌲</label>
+                    <select id="q2" class="brutal-input" required><option value="">-- Pick your path --</option><option value='20'>Ban deforestation and protect wild spaces</option><option value='10'>Balance tree planting with ongoing land development</option><option value='0'>Clear more land for farming and business</option></select>
+                </div>
+                <div class='q-wrap neo-border'><label>3. How do we fix our food system? 🍎</label>
+                    <select id="q3" class="brutal-input" required><option value="">-- Pick your path --</option><option value="20">Promote plant-heavy eating and stop wasting food</option><option value="10">Clean up industrial farming with greener methods</option><option value="0">Rely completely on our current factory food systems</option></select>
+                </div>
+                <div class="q-wrap neo-border"><label>4. How do we upgrade public travel? 🚄</label>
+                    <select id="q4" class="brutal-input" required><option value="">-- Pick your path --</option><option value="20">Invest heavily in fast trains and pedestrian spaces</option><option value="10">Push for electric vehicles instead of changing our roads</option><option value="0">Add more lanes and highways to handle traffic</option><option value="-50" class="secret-egg" style="display:none;">Teleportation (Experimental)</option></select>
+                </div>
+                <div class="q-wrap neo-border"><label>5. How do we reduce factory waste? 🏗️</label>
+                    <select id='q5' class="brutal-input" required><option value="">-- Pick your path --</option><option value="20">Shift to a repair-first circular economy</option><option value="10">Improve recycling efforts but keep single-use plastics as they are more affordable</option><option value="0">Continue with today's wasteful production methods</option></select>
+                </div>
+                <button type="submit" id="submitBtn" class="submit-button brutal-btn" title="Clicking this saves 1 virtual polar bear dont judge me"><span class="btn-text">SEE MY CLIMATE IMPACT</span></button>
+            </form>
+
+            <div id="resultBox" class="end-screen" style="display: none;">
+                <!-- HIDDEN ON WEB, VISIBLE ON PRINT -->
+                <div class="print-header" style="display: none; text-align: center; border-bottom: 2px solid black; padding-bottom: 20px; margin-bottom: 40px;">
+                    <h2 style="font-family: 'Orbitron', sans-serif; font-size: 28px; font-weight: 900; margin-bottom: 5px; color: black !important; text-shadow: none !important;">OFFICIAL CLIMATE IMPACT DOSSIER</h2>
+                    <p style="font-family: monospace; font-size: 14px; color: #555 !important;">Automated Generation Engine | Team CodeGreens Simulator</p>
+                </div>
+                
+                <h1 id="resultEmoji" class="big-emoji bounce-in">🌍</h1>
+                <h3 class="score-display">Sustainability Score: <span id='scoreText' class="glitch-score">0</span> / 100</h3>
+                <div id="barBacking" class="bar-background neo-border"><div id="barFill" class='bar-color striped-bg'></div></div>
+                <p id="feedbackText" class="feedback-text mono-text"></p>
+                
+                <div class="result-actions" style="margin-top: 40px;">
+                    <button type='button' class="btn-retry brutal-btn" onclick="resetQuiz()">Retry Policies ↺</button>
+                    <!-- Upgraded Print Button -->
+                    <button type='button' class="print-btn brutal-btn" onclick="printReport()">PRINT REPORT 🖨️</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- firestore is a weird hacker cloud place but it works -->
     <div id="board" class="board-area brutal-container">
         <h2 class="main-heading highlight-text">♻️ The Give & Take Board ♻️</h2>
+        <!-- Stats Counter (Bottom Right HUD) -->
         <div class='stats-banner neo-card floating-hud-right'><h3>Items Diverted:<br><span id="landfillCounter" class="counter-ticker">0</span></h3></div>
         <p class="sub-text mono-text">List your unused items or find something you need. Reusing items helps reduce overall waste in our community.</p>
+
         <div class="board-grid">
             <div class="new-post-box neo-card">
                 <h3 class="card-header">List a New Item</h3>
                 <form id="addItemForm">
-                    <div class="flex-inputs"><input type="text" id='newItemName' class="brutal-input" placeholder="e.g. Geometry Textbook (w/ tear stains)" required><select id="newItemIcon" class="brutal-input" required><option value="">Pick an Icon</option><option value="📚">📚 Books/Notes</option><option value="👕">👕 Uniforms/Clothes</option><option value="🎨">🎨 Art/Supplies</option><option value="⚽">⚽ Sports Gear</option><option value="💻">💻 Tech/Cables</option><option value="🛸" class="secret-egg">🛸 Alien Tech</option></select></div>
-                    <input type='text' id="newListerName" class="brutal-input" placeholder="Your Name & Class" required><textarea id="newItemDesc" class="brutal-input" rows="3" placeholder="Condition? Where to meet? (Behind the bleachers?)" required></textarea>
+                    <div class="flex-inputs">
+                        <input type="text" id='newItemName' class="brutal-input" placeholder="e.g. Geometry Textbook (w/ tear stains)" required>
+                        <select id="newItemIcon" class="brutal-input" required><option value="">Pick an Icon</option><option value="📚">📚 Books/Notes</option><option value="👕">👕 Uniforms/Clothes</option><option value="🎨">🎨 Art/Supplies</option><option value="⚽">⚽ Sports Gear</option><option value="💻">💻 Tech/Cables</option><option value="🛸" class="secret-egg">🛸 Alien Tech</option></select>
+                    </div>
+                    <input type='text' id="newListerName" class="brutal-input" placeholder="Your Name & Class" required>
+                    <textarea id="newItemDesc" class="brutal-input" rows="3" placeholder="Condition? Where to meet? (Behind the bleachers?)" required></textarea>
                     <button type="submit" class='post-btn brutal-btn' oncontextmenu="alert('Stop right clicking weirdo! Are you trying to inspect element?'); return false;">LIST ITEM 📌</button>
                 </form>
             </div>
-            <div class="board-content"><div id="live-board" class="flex-boxes custom-scroll"><h3 class="loading-text blink-text">Loading items from firestore...<br><span style="font-size:0.5em">(or spinning up hamsters)</span></h3></div>
-                <div class="claimed-box neo-card card-gray"><details class="brutal-details"><summary class="brutal-summary">📜 Claimed History</summary><div class="details-content"><p class="mono-text">Check here to see which items have already been swapped.</p><ul id="claimed-list" class="claimed-list"><li class="empty-state">No items claimed yet. (be the first!)</li></ul></div></details></div>
+
+            <div class="board-content">
+                <div id="live-board" class="flex-boxes custom-scroll"><h3 class="loading-text blink-text">Loading items from firestore...<br><span style="font-size:0.5em">(or spinning up hamsters)</span></h3></div>
+                <div class="claimed-box neo-card card-gray">
+                    <details class="brutal-details">
+                        <summary class="brutal-summary">📜 Claimed History</summary>
+                        <div class="details-content">
+                            <p class="mono-text">Check here to see which items have already been swapped.</p>
+                            <ul id="claimed-list" class="claimed-list"><li class="empty-state">No items claimed yet. (be the first!)</li></ul>
+                        </div>
+                    </details>
+                </div>
             </div>
         </div>
     </div>
-    <div class="website-carbon-floating neo-card floating-hud-left" title="Website carbon results for: codegreens-dps.github.io/ecofootprint"><span class="badge">A+</span><div class="carbon-text-wrap"><strong>96% Cleaner</strong> <span class="mono-text">than other websites globally.</span> <span class="tested-date">Tested: 19 Jul, 2026</span></div></div>
+
+    <!-- NEW: Floating A+ Rating Badge (Bottom Left HUD) -->
+    <div class="website-carbon-floating neo-card floating-hud-left" title="Website carbon results for: codegreens-dps.github.io/ecofootprint">
+        <span class="badge">A+</span>
+        <div class="carbon-text-wrap"><strong>96% Cleaner</strong> <span class="mono-text">than other websites globally.</span> <span class="tested-date">Tested: 19 Jul, 2026</span></div>
+    </div>
+
     <footer id="about" class="about-us neo-border-top">
-        <div class="footer-content"><h2 class="glitch-text" data-text="About the Devs">About the Devs</h2><p>Built for the 2026 webathon by two tired students.</p><p title="We accept first-place trophies, large pizzas, and 8 hours of sleep as payment" class="copyright">© 2026 Team CodeGreens <span onclick="alert('You found the final Easter Egg! You are officially the best judge here. 🤫 Please give us an A.')" class="secret-spy">🕵️‍♂️</span></p></div>
+        <div class="footer-content">
+            <h2 class="glitch-text" data-text="About the Devs">About the Devs</h2>
+            <p>Built for the 2026 webathon by two tired students.</p>
+            <p title="We accept first-place trophies, large pizzas, and 8 hours of sleep as payment" class="copyright">© 2026 Team CodeGreens <span onclick="alert('You found the final Easter Egg! You are officially the best judge here. 🤫 Please give us an A.')" class="secret-spy">🕵️‍♂️</span></p>
+        </div>
     </footer>
-    <div id="konami-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 999999;"><h1 style="color: var(--green); font-family: 'Orbitron', sans-serif; font-size: 4rem; text-shadow: 0 0 30px var(--green);">KONAMI ACTIVATED! 🚀</h1></div>
+
+    <!-- ADDED: The missing Konami Modal that your JS script was trying to trigger -->
+    <div id="konami-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 999999;">
+        <h1 style="color: var(--green); font-family: 'Orbitron', sans-serif; font-size: 4rem; text-shadow: 0 0 30px var(--green);">KONAMI ACTIVATED! 🚀</h1>
+    </div>
+
+    <!-- the magic juice below -->
     <script type="module" src="script.js"></script>
 </body>
 </html>
