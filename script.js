@@ -9,7 +9,7 @@ var firebaseApp = initializeApp(conf), database = getFirestore(firebaseApp);
 function cln(s){ if(!s)return""; var d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
 /* --- KONAMI CODE (Cleaned Up) --- */
 c/* --- FIXED KONAMI CODE --- */
-const KONAMI_CODE = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight'];
+const KONAMI_CODE = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
 let konamiPosition = 0;
 
 document.addEventListener('keydown', (e) => {
