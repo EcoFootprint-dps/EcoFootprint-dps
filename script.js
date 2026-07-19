@@ -316,15 +316,20 @@ window.resetQuiz = function() {
 };
 
 window.activateWinnerProtocol = function() {
-    document.body.className += " winner-mode";
+    // 1. Add visual class
+    document.body.classList.add("winner-mode");
+    
+    // 2. Create the banner
     var b = document.createElement('div');
     b.className = 'victory-banner';
-    b.innerHTML = '<h1 style="font-size: 8rem; color: #fff; text-shadow: 10px 10px 0px var(--purple);">HACKATHON WINNERS! 🏆</h1>';
+    b.innerHTML = '<h1 style="font-family: \'Orbitron\', sans-serif; font-size: 5rem; color: #fff; text-shadow: 10px 10px 0px var(--orange);">HACKATHON WINNERS! 🏆</h1>';
     document.body.appendChild(b);
     
+    // 3. Remove everything after 3 seconds
     setTimeout(function(){
-        b.remove();
-        document.body.classList.remove('winner-mode');
+        if (b.parentNode) b.remove();
+        document.body.classList.remove("winner-mode");
     }, 3000);
+    
     console.log("Judges: 'Wow, such clean code.'");
 };
