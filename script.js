@@ -17,6 +17,42 @@ function cln(s){
 /* putting everything in onload because it broke otherwise */
 window.onload = function() {
   
+  /* --- NEW STUFF: Electricity Maps API Magic --- */
+  var fetchCarbonIntensity = async function(zone) {
+      var valDisplay = document.getElementById("intensityValue");
+      valDisplay.innerText = "Loading...";
+
+      try {
+          var res = await fetch("https://api.electricitymaps.com/v3/carbon-intensity/latest?zone=" + zone, {
+              method: "GET",
+              headers: {
+                  "auth-token": "em_n3XyWvGUmEEhaaM7Qs9p4weDVx9yVMeJ"
+              }
+          });
+          
+          if (!res.ok) throw new Error("API failed us bro");
+          
+          var data = await res.json();
+          /* updating the text on screen with the live carbon intensity */
+          valDisplay.innerText = data.carbonIntensity;
+      } catch (err) {
+          console.log("Electricity API error: " + err);
+          valDisplay.innerText = "N/A"; /* fallback so it doesnt just say loading forever */
+      }
+  };
+
+  /* hook up the dropdown so it updates automatically */
+  var regionDrop = document.getElementById("regionSelect");
+  if (regionDrop) {
+      regionDrop.addEventListener("change", function(e) {
+          fetchCarbonIntensity(e.target.value);
+      });
+      /* fetch the first time the page loads too */
+      fetchCarbonIntensity(regionDrop.value);
+  }
+  /* --- END OF NEW API STUFF --- */
+
+
   /* quiz section logic */
   document.getElementById("footprintForm").onsubmit = function(e) {
     e.preventDefault(); /* stops page reload */
