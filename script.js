@@ -17,7 +17,7 @@ function cln(s){
 /* putting everything in onload because it broke otherwise */
 window.onload = function() {
   
-  /* --- NEW STUFF: Electricity Maps API Magic --- */
+  /* --- NEW STUFF: Electricity Maps API Magic (Upgraded) --- */
   var fetchCarbonIntensity = async function(zone) {
       var valDisplay = document.getElementById("intensityValue");
       valDisplay.innerText = "Loading...";
@@ -30,13 +30,24 @@ window.onload = function() {
               }
           });
           
-          if (!res.ok) throw new Error("API failed us bro");
+          if (!res.ok) {
+              /* If it fails, grab the actual error message so we aren't guessing */
+              var errTxt = await res.text();
+              console.error("🚨 API Server Error:", errTxt);
+              throw new Error("HTTP Status " + res.status);
+          }
           
           var data = await res.json();
-          /* updating the text on screen with the live carbon intensity */
-          valDisplay.innerText = data.carbonIntensity;
+          
+          /* Sometimes regions go offline and return null, we gotta handle that or it looks broken */
+          if (data && data.carbonIntensity !== undefined && data.carbonIntensity !== null) {
+              valDisplay.innerText = data.carbonIntensity;
+          } else {
+              valDisplay.innerText = "--"; 
+              console.warn("⚠️ API returned empty data for this zone:", data);
+          }
       } catch (err) {
-          console.log("Electricity API error: " + err);
+          console.error("🚨 Electricity API completely failed: ", err.message);
           valDisplay.innerText = "N/A"; /* fallback so it doesnt just say loading forever */
       }
   };
