@@ -61,26 +61,29 @@ window.onload = function() {
         if(statusDisplay) { statusDisplay.innerText = "Checking grid health..."; statusDisplay.style.color = "var(--text-color)"; }
 
         try {
-            var res = await fetch("https://api.electricitymaps.com/v3/carbon-intensity/latest?zone=" + zone, { method: "GET", headers: { "auth-token": "em_n3XyWvGUmEEhaaM7Qs9p4weDVx9yVMeJ" } });
-            if (!res.ok) { var errTxt = await res.text(); console.error("🚨 API Server Error:", errTxt); throw new Error("HTTP Status " + res.status); }
+            // Frontend requests the localized static files continuously updated by the GitHub Engine
+            var dataUrl = "./data/" + zone + ".json";
+            
+            var res = await fetch(dataUrl, { method: "GET" });
+            if (!res.ok) { throw new Error("Resource not synchronized yet. Status: " + res.status); }
             var data = await res.json();
             
             if (data && data.carbonIntensity !== undefined && data.carbonIntensity !== null) {
                 var intensity = data.carbonIntensity; valDisplay.innerText = intensity;
                 
-                /* Visual meter math (assuming 800 is the absolute dirtiest grid for our scale) */
+                /* Your original UI rendering matrix stays exactly the same */
                 if(meterFill && statusDisplay) {
                     var pct = Math.min((intensity / 800) * 100, 100); meterFill.style.width = pct + "%";
                     
-                    /* Judging the local power grid */
                     if(intensity < 250) { meterFill.style.backgroundColor = "var(--green)"; statusDisplay.innerText = "Grid is looking clean today! 🌿"; statusDisplay.style.color = "var(--green)"; } 
                     else if(intensity < 550) { meterFill.style.backgroundColor = "var(--yellow)"; statusDisplay.innerText = "Moderate emissions. Meh. 🤷‍♂️"; statusDisplay.style.color = "var(--yellow)"; } 
                     else { meterFill.style.backgroundColor = "var(--red)"; statusDisplay.innerText = "Grid is literally coughing smog. 🏭"; statusDisplay.style.color = "var(--red)"; }
                 }
-            } else { valDisplay.innerText = "--"; if(statusDisplay) statusDisplay.innerText = "Region data offline 💀"; }
+            }
         } catch (err) {
-            console.error("🚨 Electricity API completely failed: ", err.message); valDisplay.innerText = "N/A";
-            if(statusDisplay) statusDisplay.innerText = "API Blocked by School WiFi 😭";
+            console.error("🚨 Static fetch system exception: ", err.message);
+            valDisplay.innerText = "N/A";
+            if(statusDisplay) statusDisplay.innerText = "Sync failure on cloud assets 💀";
         }
     };
 
